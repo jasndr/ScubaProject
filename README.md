@@ -9,7 +9,7 @@
 
 <h2>Upcoming due dates for the project</h2>
 
-<h3>Check-in #1 -DUE SUN, Nov 2-(Meeting @ 10/27 for us)</h3>
+<h3>Check-in #1 -DUE SUN, Nov 2-(Meeting @ MON, Oct 27 for us)</h3>
 <p>Three page pdf document of:
  <ul>
   <li>Software design of the major functionality (Ex: Boxes & arrows)</li>
