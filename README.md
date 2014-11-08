@@ -5,20 +5,9 @@
 
 <body>
 <h2>Top priority at the moment?:</h2>
-<p>Check-in #1 DUE SUN, NOV 2.  See details below</p>
+<p>Have some code working by the next TA meeting which is TBA at the moment.</p>
 
 <h2>Upcoming due dates for the project</h2>
-
-<h3>Check-in #1 -DUE SUN, Nov 2-(Meeting @ MON, Oct 27 for us)</h3>
-<p>Three page pdf document of: (Each person turns in the same copy)
- <ul>
-  <li>Software design of the major functionality (Ex: Boxes & arrows)</li>
-  <li>Description of software process. Recommend TDD, short sprints, and code inspection</li>
-  <li>Estimated LOC for functionality (<u>NOT the interface</u>)</li>
-  <li>Revised estimate of LOC for the <u>interface</u></li>
-  <li>At least one paragraph for verification and validation strategy. Since this is a safety critical software you need a convincing test strategy</li>
-</ul>
-</p>
 
 <h3>Check-in #2 -DUE SUN, Nov 23 (TA meeting tbd)</h3>
 <p>Two page pdf document of: (Each person turns in the same copy)
