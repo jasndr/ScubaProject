@@ -1,6 +1,8 @@
 
 public interface FinalValues {
 
+	//CHANGING MOST OF THESE VALUES.  DO NOT USE FOR FINAL TABLE!
+	
 	//Alphabet to let the program know which letter equals which array number
 	public final char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
@@ -15,7 +17,7 @@ public interface FinalValues {
 									{5, 9, 12, 13, 15, 16, 18, 19, 21, 22, 24, 26, 27, 29, 31, 33, 35, 36, 38, 40, null, null, null, null, null, null},
 									{4, 8, 10, 11, 13, 14, 15, 17, 18, 19, 21, 22, 23, 25, 26, 28, 29, 30, null, null, null, null, null, null, null, null},
 									{4}};
-
+	
 	//Dive interval portion of the table in minutes
 	public final int[][] intervalTable = {{180},
 											{47, 228}};
