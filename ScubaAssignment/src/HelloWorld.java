@@ -1,6 +1,7 @@
 import java.util.*;
+import java.io.*;
 
-public class HelloWorld {
+public class HelloWorld { 
  public static void main (String[] args){
 	 
 	 boolean run = true;
@@ -8,8 +9,9 @@ public class HelloWorld {
 	 
 	 System.out.println("DISCLAIMER:  NOT TO BE USED ON REAL DIVES!");
 	 System.out.println("Hello World!");
-	 DiveStruct Dives = new DiveStruct();
-	 ArrayList<Dives> userTable = new ArrayList<Dives>();
+    
+	 ArrayList<DiveStruct> userTable = new ArrayList<DiveStruct>();
+    
 	 Scanner input = new Scanner(System.in);
 	 
 	 while(run == true){
@@ -36,11 +38,11 @@ public class HelloWorld {
 	 //Testing
  }
  
- public void homePage(){
+ public static void homePage(){
 	 
  }
  
- public void diveLog(ArrayList<Dives> userTable){
+ public static void diveLog(ArrayList<DiveStruct> userTable){
 	 boolean run = true;
 	 String userChoice;
 	 Scanner input = new Scanner(System.in);
@@ -59,16 +61,74 @@ public class HelloWorld {
 	 }
  }
  
- public void addTable(ArrayList<Dives> userTable){
+ public static void diveTable(){
+ 
+ }
+ 
+ public static void settings(){
+ 
+ }
+ 
+ public static void addTable(ArrayList<DiveStruct> userTable){
 	 
+	 boolean isValid = false;
+	 int diveNum = userTable.size()+1;
 	 int rNitrogen = 0;
-	 int maxDepth = 0;
+	 int userDepth;
 	 int maxDepthIndex = -1;
-	 int diveTime = 0;
-	 int pGroupIndex = -1;
-	 char pGroup = null;
-	 char newpGroup = null;
+	 int userTime;
+	 int bottomTimeIndex = -1;
+	 int userInterval;
+	 int surfaceIntervalIndex = -1;
+	 	 
+	 Scanner input = new Scanner(System.in);
 	 
+	 while(isValid == false){
+		 try{
+			 System.out.println("Dive number: " + diveNum);
+			 
+			 System.out.println("Enter your max dive depth in meters."); //When user clicks on the depth area
+			 userDepth = input.nextInt();
+			 maxDepthIndex = maxDepthIndex(userDepth);
+			 if(userDepth <= 0){
+				 //Prints message saying you cannot dive that value. (too large or negative value)
+				 userDepth = 0;
+			 }
+			 else{
+				 //Allow the value to be saved
+			 }
+			 
+			 //FORCE USERS TO ENTER THINGS IN ORDER
+			 System.out.println("Enter bottom time in minutes."); //When user clicks on the bottom time area
+			 userTime = input.nextInt();
+			 bottomTimeIndex = diveTimeIndex(maxDepthIndex, userTime);
+			 if(userTime <= 0){
+				 //Prints message saying invalid time (too large or negative value)
+				 userTime = 0;
+			 }
+			 else{
+				 //Allow the value to be saved
+			 }
+			 
+			 System.out.println("Enter surface interval in minutes."); //When user clicks on surface interval area
+			 userInterval = input.nextInt();
+			 surfaceIntervalIndex = surfaceIndex(bottomTimeIndex, userInterval);
+			 if(userInterval < 10 || userInterval > 1440){
+				 //prints out message saying time is too short or too long (within 24 hours)
+			 }
+			 else{
+				 //Allow the value to be stored
+			 }
+			 
+			 DiveStruct dives = new DiveStruct(diveNum, userDepth, userTime, userInterval);
+			 
+			 isValid = true; //if user clicks on the save button
+			 userTable.add(dives); //if user clicks on the save button
+		 }
+		 catch(InputMismatchException e){
+			 System.out.println("Enter only integers.");
+		 }
+	 }
 	 //Kris testing.  For example if user enters max dive as 35 and dive time as 37, we should do something like
 	 //some function that rounds up the user's max depth to the next max depth up to 140feet
 	 //Does this whole thing go into a while loop?  I'm not sure how GUI code for menus work with code...
@@ -98,7 +158,34 @@ public class HelloWorld {
 	 //}
  }
  
- public void editTable(ArrayList<Dives> userTable){
+ public static void editTable(ArrayList<DiveStruct> userTable){
 	 
+ }
+ 
+ public static int maxDepthIndex(int userDepth){
+	 for(int i = 0; i < FinalValues.maxDepth.length; i++){
+		 if(FinalValues.maxDepth[i] >= userDepth){
+			 return i;
+		 }
+	 }
+    return -1;
+ }
+ 
+ public static int diveTimeIndex(int maxDepthIndex, int userTime){
+	 for(int i = 0; i < FinalValues.nitrogenTable[maxDepthIndex].length; i++){
+		 if(FinalValues.nitrogenTable[maxDepthIndex][i] >= userTime){
+			 return i;
+		 }
+	 }
+	 return -1;
+ }
+ 
+ public static int surfaceIndex(int bottomTimeIndex, int userInterval){
+	 for(int i = 0; i < FinalValues.intervalTable[bottomTimeIndex].length; i++){
+		 if(FinalValues.intervalTable[bottomTimeIndex][i] >= userTime){
+			 return i;
+		 }
+	 }
+	 return -1;
  }
 }
