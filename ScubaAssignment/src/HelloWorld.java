@@ -140,7 +140,7 @@ public class HelloWorld {
 	 //if(maxDepthIndex > 0) {
 	 //    if(first dive) {
 	 //        for(int i = 0; i < 26; i++) {
-	 //            if(FinalValues.nitrogenTable[maxDepthIndex][i] <= diveTime) {
+	 //            if(FinalValues.timeTable[maxDepthIndex][i] <= diveTime) {
 	 //                pGroupIndex = i;
      //            }
 	 //			   else
@@ -172,8 +172,8 @@ public class HelloWorld {
  }
  
  public static int diveTimeIndex(int maxDepthIndex, int userTime){
-	 for(int i = 0; i < FinalValues.nitrogenTable[maxDepthIndex].length; i++){
-		 if(FinalValues.nitrogenTable[maxDepthIndex][i] >= userTime){
+	 for(int i = 0; i < FinalValues.timeTable[maxDepthIndex].length; i++){
+		 if(FinalValues.timeTable[maxDepthIndex][i] >= userTime){
 			 return i;
 		 }
 	 }
