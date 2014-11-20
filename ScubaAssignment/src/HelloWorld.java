@@ -213,7 +213,7 @@ public class HelloWorld {
  
  public static int surfaceIndex(int bottomTimeIndex, int userInterval){
 	 for(int i = (FinalValues.intervalTable[bottomTimeIndex].length - 1); i >= 0; i--){
-		 if(FinalValues.intervalTable[bottomTimeIndex][i] >= userTime){
+		 if(FinalValues.intervalTable[bottomTimeIndex][i] >= userInterval){
 			 return i;
 		 }
 	 }
