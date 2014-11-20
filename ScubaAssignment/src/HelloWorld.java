@@ -15,7 +15,7 @@ public class HelloWorld {
 	 Scanner input = new Scanner(System.in);
 	 
 	 while(run == true){
-		 System.out.println("Select menu option (this wont be printed on the GUI");
+		 System.out.println("Select menu option (this wont be printed on the GUI)");
 		 userChoice = input.nextLine();
 		 
 		 switch(userChoice){
@@ -31,7 +31,7 @@ public class HelloWorld {
 		 	case "SETTINGS":  settings();
 		 					  break;
 		 					  
-		 	default:		  System.out.println("Invalid Choice (shoudln't be in GUI");
+		 	default:		  System.out.println("Invalid Choice (this message shoudln't be in GUI)");
 		 					  break;
 		 }
 	 }
@@ -84,9 +84,57 @@ public class HelloWorld {
 	 Scanner input = new Scanner(System.in);
 	 
 	 while(isValid == false){
+		 if(diveNum == 0){
+			 try{
+				 System.out.println("Dive number: " + diveNum);
+			 
+				 System.out.println("Enter your max dive depth in meters."); //When user clicks on the depth area
+				 userDepth = input.nextInt();
+				 maxDepthIndex = maxDepthIndex(userDepth);
+				 if(userDepth <= 0){
+					 //Prints message saying you cannot dive that value. (too large or negative value)
+					 userDepth = 0;
+				 }
+				 else{
+					 //Allow the value to be saved
+				 }
+			 
+				 //FORCE USERS TO ENTER THINGS IN ORDER
+				 System.out.println("Enter bottom time in minutes."); //When user clicks on the bottom time area
+				 userTime = input.nextInt();
+				 bottomTimeIndex = diveTimeIndex(maxDepthIndex, userTime);
+				 if(userTime <= 0){
+					 //Prints message saying invalid time (too large or negative value)
+					 userTime = 0;
+				 }
+				 else{
+					 //Allow the value to be saved
+				 }
+				 
+				 System.out.println("Enter surface interval in minutes."); //When user clicks on surface interval area
+				 userInterval = input.nextInt();
+				 surfaceIntervalIndex = surfaceIndex(bottomTimeIndex, userInterval);
+				 if(userInterval < 10 || userInterval > 1440){
+					 //prints out message saying time is too short or too long (within 24 hours)
+				 }
+				 else{
+					 //Allow the value to be stored
+				 }
+			 
+				 DiveStruct dives = new DiveStruct(diveNum, userDepth, userTime, userInterval, surfaceIntervalIndex);
+			 
+				 isValid = true; //if user clicks on the save button
+				 userTable.add(dives); //if user clicks on the save button
+			 }
+		 }
+		 catch(InputMismatchException e){
+			 System.out.println("Enter only integers (will not need if drop down)");
+		 }
+	 }
+	 else{
 		 try{
 			 System.out.println("Dive number: " + diveNum);
-			 
+		 
 			 System.out.println("Enter your max dive depth in meters."); //When user clicks on the depth area
 			 userDepth = input.nextInt();
 			 maxDepthIndex = maxDepthIndex(userDepth);
@@ -97,11 +145,12 @@ public class HelloWorld {
 			 else{
 				 //Allow the value to be saved
 			 }
+			 rNitrogen = FinalValues.nitrogenTable[userTable.get(diveNum-2).getSurfaceIntervalIndex()][maxDepthIndex];
 			 
 			 //FORCE USERS TO ENTER THINGS IN ORDER
-			 System.out.println("Enter bottom time in minutes."); //When user clicks on the bottom time area
+			 System.out.println("Enter bottom time in minutes (if drop down menu, we have to tell user to round up)"); //When user clicks on the bottom time area
 			 userTime = input.nextInt();
-			 bottomTimeIndex = diveTimeIndex(maxDepthIndex, userTime);
+			 bottomTimeIndex = diveTimeIndex(maxDepthIndex, userTime+rNitrogen);
 			 if(userTime <= 0){
 				 //Prints message saying invalid time (too large or negative value)
 				 userTime = 0;
@@ -119,44 +168,20 @@ public class HelloWorld {
 			 else{
 				 //Allow the value to be stored
 			 }
-			 
-			 DiveStruct dives = new DiveStruct(diveNum, userDepth, userTime, userInterval);
-			 
+		 
+			 DiveStruct dives = new DiveStruct(diveNum, userDepth, userTime, userInterval, surfaceIntervalIndex);
+		 
 			 isValid = true; //if user clicks on the save button
 			 userTable.add(dives); //if user clicks on the save button
 		 }
-		 catch(InputMismatchException e){
-			 System.out.println("Enter only integers.");
+		 catch(InputMismatchExeption e){
+			 System.out.println("Enter only integers (will not need if drop down");
 		 }
 	 }
 	 //Kris testing.  For example if user enters max dive as 35 and dive time as 37, we should do something like
 	 //some function that rounds up the user's max depth to the next max depth up to 140feet
 	 //Does this whole thing go into a while loop?  I'm not sure how GUI code for menus work with code...
-	 //
-	 //
-	 //for(int i = 0; i < 12; i++) {
-	 //    if(FinalValues.maxDepth[i] <= maxDepth) {
-	 //        maxDepthIndex = i;
-	 //if(maxDepthIndex > 0) {
-	 //    if(first dive) {
-	 //        for(int i = 0; i < 26; i++) {
-	 //            if(FinalValues.timeTable[maxDepthIndex][i] <= diveTime) {
-	 //                pGroupIndex = i;
-     //            }
-	 //			   else
-	 //                System.out.println("Invalid input or max time is too long.");
-	 //            }
-	 //        }
-	 //    }
-	 //    else {
-	 //        newpGroup = FinalValues.tablethatdoesntexistyet[pGroup][dive interval];
-	 //    }
-	 //}
-	 //else {
-	 //    System.out.println("Invalid input or max depth is too deep (max is 140 feet/42.6 meters)");
-	 //    System.out.println("Please reinput a valid depth.");
-	 //}
- }
+	 
  
  public static void editTable(ArrayList<DiveStruct> userTable){
 	 
@@ -181,7 +206,7 @@ public class HelloWorld {
  }
  
  public static int surfaceIndex(int bottomTimeIndex, int userInterval){
-	 for(int i = 0; i < FinalValues.intervalTable[bottomTimeIndex].length; i++){
+	 for(int i = (FinalValues.intervalTable[bottomTimeIndex].length - 1); i >= 0; i--){
 		 if(FinalValues.intervalTable[bottomTimeIndex][i] >= userTime){
 			 return i;
 		 }

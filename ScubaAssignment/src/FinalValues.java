@@ -15,7 +15,7 @@ public interface FinalValues {
 	
 	//Dive interval portion of the table in minutes
 	public final int[][] intervalTable = {{1440},
-											{200, 1440}};
+											{1440, 200}};
 	
 	//Residual nitrogen times
 	public final int[][] nitrogenTable = {{7, 6, 5, 4, 4, 3, 3, 3, 3, 3},
