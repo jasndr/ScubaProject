@@ -2,6 +2,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.InputMismatchException;
 
 @SuppressWarnings("serial")
 public class diveTable extends JFrame implements ActionListener{
@@ -18,8 +19,9 @@ public class diveTable extends JFrame implements ActionListener{
 	private JLabel diveNum5, depth5, botTime5, surfInt5, resNitro5;
 	
 	//used for the create dive popup
-	private int diveCounter = 1;
-	private Integer[] userDepth, userBotTime, userSurfInt; //the arrays of numbers for the list
+	private int diveCounter = 0;
+	private int userDepth, userBotTime, userSurfInt;
+	private JTextField userDepthTxt, userBotTimeTxt, userSurfIntTxt; //the arrays of numbers for the list
 	private JLabel userDepthLbl, userBotTimeLbl, userSurfIntLbl;
 	private JPanel createDepthPopup, createBotPopup, createSurfPopup;
 	@SuppressWarnings("rawtypes")
@@ -194,179 +196,186 @@ public class diveTable extends JFrame implements ActionListener{
 	 *********************************************************/
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	public void createDive() {
-    	if(diveCounter == 1){ //if this is the first dive
-    		userDepth = new Integer[]{40, 50, 60, 70, 80, 90, 100, 110, 120, 130}; //the depths the user can pic
-            depthList = new JComboBox(userDepth); //put them into a drop down menu
-   
-            userDepthLbl = new JLabel("Enter Depth: "); //creates prompt for the user to select a depth
-    		createDepthPopup = new JPanel(new GridLayout(1,0)); //creating the popup as a grid
-    		createDepthPopup.add(userDepthLbl); //adds the label to the popup
-    		createDepthPopup.add(depthList); //adds the drop down menu to the popup
+    	if(diveCounter < 5){
+    		//System.out.println("you are on dive number" +diveCounter); //check to see what dive 
+    		//create the depth popup
+    		userDepthTxt = new JTextField();
+    		userDepthLbl = new JLabel("Enter your desired DEPTH in meters.");
+    		createDepthPopup = new JPanel(new GridLayout(0,1));
+    		createDepthPopup.add(userDepthLbl);
+    		createDepthPopup.add(userDepthTxt);
     		
-    		//this displays the popup and gets the result of what the user selects based on OK or CANCEL
-    		int depthResult = JOptionPane.showConfirmDialog(null, createDepthPopup, 
-    				"Create Dive Number: " + diveCounter, JOptionPane.OK_CANCEL_OPTION,
-    				JOptionPane.OK_OPTION);
-    		
-    		
-    		userBotTimeLbl = new JLabel("Enter Bottom Time: "); //creates prompt for the user to select a depth
-    		userSurfIntLbl = new JLabel("Enter Surface Time: "); //creates prompt for the user to select surface time
-    		
-    		//probably can change this to a switch statement
-    		if(depthList.getSelectedItem().equals(40)) //if the user wants to go 40 ft
-    		{	
-    			//create userBotTime array for 40
-    			userBotTime = new Integer[]{5, 15, 25, 30, 40, 50, 70, 80, 100, 110, 130}; //these are the choices they
-    																					   //can select to stay at the bottom
-    			botTimeList = new JComboBox(userBotTime); //put them into a drop down menu
-    		}
-    		else if(depthList.getSelectedItem().equals(50))
-    		{	
-    			//create userBotTime array for 50
-    			userBotTime = new Integer[]{10, 15, 25, 30, 40, 50, 60, 70, 80};
-    			botTimeList = new JComboBox(userBotTime);
-    		}
-    		else if(depthList.getSelectedItem().equals(60))
-    		{	
-    			//create userBotTime array for 60
-    			userBotTime = new Integer[]{10, 15, 20, 25, 30, 40, 50, 55};
-    			botTimeList = new JComboBox(userBotTime);
-    		}
-    		else if(depthList.getSelectedItem().equals(70))
-    		{	
-    			//create userBotTime array for 70
-    			userBotTime = new Integer[]{5, 10, 15, 20, 30, 35, 40, 45};
-    			botTimeList = new JComboBox(userBotTime);
-    		}
-    		else if(depthList.getSelectedItem().equals(80))
-    		{	
-    			//create userBotTime array for 80
-    			userBotTime = new Integer[]{5, 10, 15, 20, 25, 30, 35};
-    			botTimeList = new JComboBox(userBotTime);
-    		}
-    		else if(depthList.getSelectedItem().equals(90))
-    		{	
-    			//create userBotTime array for 90
-    			userBotTime = new Integer[]{5, 10, 12, 15, 20, 25};
-    			botTimeList = new JComboBox(userBotTime);
-    		}
-    		else if(depthList.getSelectedItem().equals(100))
-    		{	
-    			//create userBotTime array for 100
-    			userBotTime = new Integer[]{5, 7, 10, 15, 20, 22};
-    			botTimeList = new JComboBox(userBotTime);
-    		}
-    		else if(depthList.getSelectedItem().equals(110))
-    		{	
-    			//create userBotTime array for 110
-    			userBotTime = new Integer[]{5, 10, 13, 15};
-    			botTimeList = new JComboBox(userBotTime); 
-    		}
-    		else if(depthList.getSelectedItem().equals(120))
-    		{	
-    			//create userBotTime array for 120
-    			userBotTime = new Integer[]{5, 10, 12};
-    			botTimeList = new JComboBox(userBotTime);
-    		}
-    		else
-    		{	
-    			//create userBotTime array for 130
-    			userBotTime = new Integer[]{5, 8};
-    			botTimeList = new JComboBox(userBotTime); 
-    		}
-    		
-    		createBotPopup = new JPanel(new GridLayout(1,0)); //
+    		//create the bottom time popup
+    		userBotTimeTxt = new JTextField();
+    		userBotTimeLbl = new JLabel("Enter your desired BOTTOM TIME in meters.");
+    		createBotPopup = new JPanel(new GridLayout(0,1));
     		createBotPopup.add(userBotTimeLbl);
-    		createBotPopup.add(botTimeList);
+    		createBotPopup.add(userBotTimeTxt);
     		
-    		int botTimeResult = JOptionPane.showConfirmDialog(null, createBotPopup, 
-    				"Create Dive Number: " + diveCounter, JOptionPane.OK_CANCEL_OPTION,
-    				JOptionPane.OK_OPTION);
-    		
-    		
-    		createSurfPopup = new JPanel(new GridLayout(1, 0));
+    		//create the surface interval popup
+    		userSurfIntTxt = new JTextField();
+    		userSurfIntLbl = new JLabel("Enter your desired SURFACE INTERVAL in minutes.");
+    		createSurfPopup = new JPanel(new GridLayout(0,1));
     		createSurfPopup.add(userSurfIntLbl);
-    		//createBotPopup.add(botSurfList);
-
-    		int surfIntResult = JOptionPane.showConfirmDialog(null, createSurfPopup, 
-    				"Create Dive Number: " + diveCounter, JOptionPane.OK_CANCEL_OPTION,
-    				JOptionPane.OK_OPTION);
+    		createSurfPopup.add(userSurfIntTxt);
     		
+    		//opens the depth popup
+    		int depthResult = JOptionPane.showConfirmDialog(null, createDepthPopup, 
+    				"Create Dive #" + (diveCounter + 1) + ": DEPTH", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
     		
-
-
-    		if(depthResult == JOptionPane.OK_OPTION && botTimeResult == JOptionPane.OK_OPTION 
-    				&& surfIntResult == JOptionPane.OK_OPTION) //if all the popup options where selected as OK
+    		if(depthResult == JOptionPane.OK_OPTION)//so if the user clicks OK
     		{
-    			System.out.println(diveCounter); //just a check to see what dive we are in..get rid of this later
-    			diveNum1.setText(diveCounter + ""); //<--- the lazy way of turning an int into a string
-    			depth1.setText(depthList.getSelectedItem().toString());
-    			botTime1.setText(botTimeList.getSelectedItem().toString());
-    			surfInt1.setText("need to find out surface interval time"); 
-    			diveCounter += 1; 
-    			
+    			//have to do a check if input is valid number
+    			try{
+    				userDepth = Integer.parseInt(userDepthTxt.getText());
+    				//System.out.println("This is the depth " + userDepth); just a check to see if input is correct
+    				
+    				if(userDepth > 0){ //checks if positive
+    					
+    					//opens the bottom time popup 
+    					int botTimeResult = JOptionPane.showConfirmDialog(null, createBotPopup, 
+    		    				"Create Dive #" + (diveCounter + 1) + ": BOTTOM TIME", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+    					
+    					if(botTimeResult == JOptionPane.OK_OPTION){//if OK 
+    						
+    						//parse input into a int
+    						userBotTime = Integer.parseInt(userBotTimeTxt.getText());
+    						//System.out.println("This is the bottom time " + userBotTime); just a check to see input
+    						
+    						if(userBotTime > 0){//if positive
+    							
+    							//opens surface interval popup
+    							int surfIntResult = JOptionPane.showConfirmDialog(null, createSurfPopup, 
+    	    		    				"Create Dive #" + (diveCounter + 1)+ ": SURFACE INTERVAL", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+    							
+    							if(surfIntResult == JOptionPane.OK_OPTION){ //if OK
+    								
+    								//parse input into an int
+    								userSurfInt = Integer.parseInt(userSurfIntTxt.getText());
+    								//System.out.println("This is the surface interval " + userSurfInt); just a check to see input
+    								
+    								if(userSurfInt > 0){
+    									//all input is valid
+    									//call on kris's class and send 
+    									//userDepth = for depth
+    									//userBotTime = for bottom time
+    									//userSurfInt = for surface interval
+    									//get return and set in the various labels
+    									//this if statement is getting too long
+    									//we can make a new method that can store the info
+    									//using a switch statement based on the diveCounter
+    									
+    									diveCounter += 1; //increment dive counter
+    									
+    									/*for testing purposes, will always store information
+    									 * on the first row of the dive table just seeing if
+    									 * i can delete a row 
+    									diveNum1.setText(diveCounter + "");
+    									depth1.setText(userDepth + "");
+    									botTime1.setText(userBotTime + "");
+    									surfInt1.setText(userSurfInt + "");*/
+    								}
+    								else{
+    									//when the surface interval isnt positive
+    	    	        				JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
+    	    	        						"ERROR", JOptionPane.WARNING_MESSAGE);
+    								}	
+    							}
+    							else{
+    								//when cancel is pressed from the surface popup
+    	    		    			JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
+    							}
+    							
+    						}
+    						else{
+    							//when bottom time isnt positive
+    	        				JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
+    	        						"ERROR", JOptionPane.WARNING_MESSAGE);
+    						}
+    					}
+    					else{
+    						//when cancel is pressed from the bottom time popup
+    		    			JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
+    					}
+    				}
+    				else{
+    					//when depth isnt positive
+        				JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
+        						"ERROR", JOptionPane.WARNING_MESSAGE);
+    				}
+    			}catch(NumberFormatException e){
+    				//error message for all popups if not a number
+    				JOptionPane.showMessageDialog(null, "You have not entered an actual number!", "ERROR", JOptionPane.WARNING_MESSAGE);
+    			}
     		}
+    		else{
+    			//when cancel is pressed from the depth popup
+    			JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
+    		}	
     	}
-    	else if(diveCounter <= 5){ //didnt implements popups for dive 2-5
-    		System.out.println(diveCounter);
-    		diveCounter += 1;
+    	else{
+    		//you have made too many dives
+			JOptionPane.showMessageDialog(null, "You have the created TOO MANY DIVES, if you would like to create more, please delete dives", "WARNING", JOptionPane.WARNING_MESSAGE);
     	}
-    	else{ //if the user selects cancel just a check that if was actually selected
-    		System.out.println("Cancelled"); //prints to the console
-    	}               
    }
    
    public void deleteDive(){
     	
-    	JLabel deleteLbl = new JLabel("Are you sure you would like to delete dive number " + (diveCounter - 1));
+    	JLabel deleteLbl = new JLabel("Are you sure you would like to delete dive number " + (diveCounter));
     	
-    	int deleteResult = JOptionPane.showConfirmDialog(null, deleteLbl, 
-				"Delete Dive Number: " + (diveCounter -1), JOptionPane.OK_CANCEL_OPTION,
-				JOptionPane.OK_OPTION);
-    	
-    	//can probably use a switch statement maybe?
-    	if(deleteResult == JOptionPane.OK_OPTION) //if the user is sure that the want to delete
-    	{
-        	if((diveCounter -1) == 1){ //if you are on dive 1 set everything on dive 1 to empty
-        		diveNum1.setText("");
-        		depth1.setText("");
-        		botTime1.setText("");
-        		surfInt1.setText("");
-        		resNitro1.setText("");
-        	}
-        	else if((diveCounter -1) == 2){
-        		diveNum2.setText("");
-        		depth2.setText("");
-        		botTime2.setText("");
-        		surfInt2.setText("");
-        		resNitro2.setText("");
-        	}
-        	else if((diveCounter -1) == 3){
-        		diveNum3.setText("");
-        		depth3.setText("");
-        		botTime3.setText("");
-        		surfInt3.setText("");
-        		resNitro3.setText("");
-        	}
-        	else if((diveCounter -1) == 4){
-        		diveNum4.setText("");
-        		depth4.setText("");
-        		botTime4.setText("");
-        		surfInt4.setText("");
-        		resNitro4.setText("");
-        	}
-        	else if((diveCounter -1) == 5){
-        		diveNum5.setText("");
-        		depth5.setText("");
-        		botTime5.setText("");
-        		surfInt5.setText("");
-        		resNitro5.setText("");
-        	}
-        	diveCounter -= 1;
-        	System.out.println(diveCounter);
-    	}
+    	if(diveCounter <= 0){
+			JOptionPane.showMessageDialog(null, "You HAVE NOT CREATED any dives", "WARNING", JOptionPane.WARNING_MESSAGE);
 
-    		
+    	}
+    	else{
+        	
+        	int deleteResult = JOptionPane.showConfirmDialog(null, deleteLbl, 
+    				"Delete Dive Number: " + (diveCounter), JOptionPane.OK_CANCEL_OPTION,
+    				JOptionPane.OK_OPTION);
+        	
+        	//can probably use a switch statement maybe?
+        	if(deleteResult == JOptionPane.OK_OPTION) //if the user is sure that the want to delete
+        	{
+        		
+            	if(diveCounter == 1){ //if you are on dive 1 set everything on dive 1 to empty
+            		diveNum1.setText("");
+            		depth1.setText("");
+            		botTime1.setText("");
+            		surfInt1.setText("");
+            		resNitro1.setText("");
+            	}
+            	else if(diveCounter == 2){
+            		diveNum2.setText("");
+            		depth2.setText("");
+            		botTime2.setText("");
+            		surfInt2.setText("");
+            		resNitro2.setText("");
+            	}
+            	else if(diveCounter == 3){
+            		diveNum3.setText("");
+            		depth3.setText("");
+            		botTime3.setText("");
+            		surfInt3.setText("");
+            		resNitro3.setText("");
+            	}
+            	else if(diveCounter == 4){
+            		diveNum4.setText("");
+            		depth4.setText("");
+            		botTime4.setText("");
+            		surfInt4.setText("");
+            		resNitro4.setText("");
+            	}
+            	else if(diveCounter == 5){
+            		diveNum5.setText("");
+            		depth5.setText("");
+            		botTime5.setText("");
+            		surfInt5.setText("");
+            		resNitro5.setText("");
+            	}
+            	diveCounter -= 1;
+            	System.out.println(diveCounter);
+        	}
+    	}		
    }
     
 	
