@@ -5,11 +5,11 @@
 
 <body>
 <h2>Top priority at the moment?:</h2>
-<p>Have some code working by the next TA meeting which is TBA at the moment.</p>
+<p>Complete Final Demo by SUN, Dec 7.  At least one meet-up the week before.</p>
 
 <h2>Upcoming due dates for the project</h2>
 
-<h3>Check-in #2 -DUE SUN, Nov 23 (TA meeting tbd)</h3>
+<h3>Check-in #2 -DUE SUN, Nov 23 (TA meeting 11/19)</h3>
 <p>Two page pdf document of: (Each person turns in the same copy)
  <ul>
   <li>Revised LOC estimate for functionality and the interface (so two estimates)</li>
