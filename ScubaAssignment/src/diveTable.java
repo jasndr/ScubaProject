@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.InputMismatchException;
+import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class diveTable extends JFrame implements ActionListener{
@@ -20,16 +21,17 @@ public class diveTable extends JFrame implements ActionListener{
 	
 	//used for the create dive popup
 	private int diveCounter = 0;
-	private int userDepth, userBotTime, userSurfInt;
 	private JTextField userDepthTxt, userBotTimeTxt, userSurfIntTxt; //the arrays of numbers for the list
 	private JLabel userDepthLbl, userBotTimeLbl, userSurfIntLbl;
 	private JPanel createDepthPopup, createBotPopup, createSurfPopup;
 	@SuppressWarnings("rawtypes")
-	private JComboBox depthList, botTimeList, surfIntList; //creates the actual drop down list
+	//private JComboBox depthList, botTimeList, surfIntList; //creates the actual drop down list
 															//need to still implement the surf int list
+                                             //Do we still need this? -Kris
 	   
-   //Accessing the dive functions
-   diveFunctions dFunction = new diveFunctions();
+   //Accessing the dive functions and storing data
+   diveFunctions dFunctions = new diveFunctions();
+   ArrayList<DiveStruct> userTable = new ArrayList<DiveStruct>();
    
 	public diveTable(){
 		
@@ -183,7 +185,7 @@ public class diveTable extends JFrame implements ActionListener{
 		/*****************************************************
 		 * the main panel to put together the buttons and grid
 		*****************************************************/
-		mainWindow = getContentPane(); 
+		mainWindow = getContentPane();
 		mainWindow.setLayout(new BorderLayout());
 		mainWindow.add(buttonGroup, BorderLayout.WEST); //puts the buttons to the left
 		mainWindow.add(table, BorderLayout.CENTER); //puts the table in the middle
@@ -199,6 +201,11 @@ public class diveTable extends JFrame implements ActionListener{
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	public void createDive() {
       boolean isValidDepth, isValidBTime, isValidITime;
+      int userDepth, userBotTime, userSurfInt; //Moved these values here since don't need to use them outside of this method
+	   int rNitrogen = 0;
+	   int maxDepthIndex = -1;
+	   int bottomTimeIndex = -1;
+	   int surfaceIntervalIndex = -1;
    
     	if(diveCounter < 5){
     		//System.out.println("you are on dive number" +diveCounter); //check to see what dive 
@@ -211,7 +218,7 @@ public class diveTable extends JFrame implements ActionListener{
     		
     		//create the bottom time popup
     		userBotTimeTxt = new JTextField();
-    		userBotTimeLbl = new JLabel("Enter your desired BOTTOM TIME in meters.");
+    		userBotTimeLbl = new JLabel("Enter your desired BOTTOM TIME in minutes."); //lol you had meters here instead of minutes.
     		createBotPopup = new JPanel(new GridLayout(0,1));
     		createBotPopup.add(userBotTimeLbl);
     		createBotPopup.add(userBotTimeTxt);
@@ -234,8 +241,9 @@ public class diveTable extends JFrame implements ActionListener{
     		   	try{
     		   		userDepth = Integer.parseInt(userDepthTxt.getText());
     		   		//System.out.println("This is the depth " + userDepth); just a check to see if input is correct
+                  maxDepthIndex = dFunctions.maxDepthIndex(userDepth);
     				
-    		   		if(userDepth > 0){ //checks if positive
+    		   		if(userDepth > 0 && maxDepthIndex >= 0){ //checks if positive and if the value is valid on the chart
     		   			isValidDepth = true;
                      isValidBTime = false;
     		   			//opens the bottom time popup
@@ -248,8 +256,15 @@ public class diveTable extends JFrame implements ActionListener{
     		   			   	//parse input into a int
     		   			   	userBotTime = Integer.parseInt(userBotTimeTxt.getText());
     		   			   	//System.out.println("This is the bottom time " + userBotTime); just a check to see input
+                           if(diveCounter > 0){
+                              rNitrogen = FinalValues.nitrogenTable[userTable.get(diveCounter-1).getSurfaceIntervalIndex()][maxDepthIndex];
+                              bottomTimeIndex = dFunctions.diveTimeIndex(maxDepthIndex, userBotTime+rNitrogen);
+                           }
+                           else{
+                              bottomTimeIndex = dFunctions.diveTimeIndex(maxDepthIndex, userBotTime);
+                           }
     						
-    		   			   	if(userBotTime > 0){//if positive
+    		   			   	if(userBotTime > 0 && bottomTimeIndex >= 0){//if positive and time isn't too long
     							      isValidBTime = true;
                               isValidITime = false;
     							      //opens surface interval popup
@@ -262,33 +277,28 @@ public class diveTable extends JFrame implements ActionListener{
     							      	   //parse input into an int
     							      	   userSurfInt = Integer.parseInt(userSurfIntTxt.getText());
     							      	   //System.out.println("This is the surface interval " + userSurfInt); just a check to see input
+                                    surfaceIntervalIndex = dFunctions.surfaceIndex(bottomTimeIndex, userSurfInt);
     								
-    							   	      if(userSurfInt > 0){
+    							   	      if(userSurfInt >= 10 && surfaceIntervalIndex >= 0){
                                        isValidITime = true;
-    							   	   	   //all input is valid
-    							   	   	   //call on kris's class and send 
-    							   	   	   //userDepth = for depth
-    							   	   	   //userBotTime = for bottom time
-    							   		      //userSurfInt = for surface interval
-    							   		      //get return and set in the various labels
-    							   		      //this if statement is getting too long
-    							   		      //we can make a new method that can store the info
-    							   		      //using a switch statement based on the diveCounter
-    									
+    							   	   	   //all input is valid!!!!!!!!!!!!!!!!!!!!!!! <Midpoint of giant code lol
+                                       
+                                       DiveStruct dives = new DiveStruct(diveCounter+1, userDepth, userBotTime, userSurfInt, surfaceIntervalIndex); //store dive information
+                                       userTable.add(dives);
+                                       setTable(diveCounter);
     							   		      diveCounter += 1; //increment dive counter
-    									   
-    							   		      /*for testing purposes, will always store information
-    							   		       * on the first row of the dive table just seeing if
-    							   		       * i can delete a row 
-    							   		      diveNum1.setText(diveCounter + "");
-    							   		      depth1.setText(userDepth + "");
-    							   		      botTime1.setText(userBotTime + "");
-    							   		      surfInt1.setText(userSurfInt + "");*/
     							   	      }
     								         else{
     								         	//when the surface interval isnt positive
-    	    	         				      JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
-    	    	         				      		"ERROR", JOptionPane.WARNING_MESSAGE);
+                                       if(userSurfInt < 10){
+    	    	         				         JOptionPane.showMessageDialog(null, "Must have at least 10min interval! (for single dive, simply enter 10)", 
+    	    	         				      		   "ERROR", JOptionPane.ERROR_MESSAGE);
+                                       }
+                                       else
+                                       {
+                                          JOptionPane.showMessageDialog(null, "Interval is too long! Maximum is 24hrs (1440mins)", 
+    	    	         				      		   "ERROR", JOptionPane.ERROR_MESSAGE);
+                                       }
     								         }	
     							         }
     							         else{
@@ -301,8 +311,14 @@ public class diveTable extends JFrame implements ActionListener{
     						      }
     						      else{
     						      	//when bottom time isnt positive
-    	             				JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
-    	             						"ERROR", JOptionPane.WARNING_MESSAGE);
+                              if(userBotTime <= 0){
+    	             				   JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
+    	             						   "ERROR", JOptionPane.ERROR_MESSAGE);
+                              }
+                              else{
+                                 JOptionPane.showMessageDialog(null, "Bottom time is too long!  Please enter a shorter time or shallower depth.", 
+    	             						   "ERROR", JOptionPane.ERROR_MESSAGE);
+                              }
     						      }
     					      }
     					      else{
@@ -314,14 +330,26 @@ public class diveTable extends JFrame implements ActionListener{
                      }
     				   }
     				   else{
-    				   	//when depth isnt positive
-         				JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
-         						"ERROR", JOptionPane.WARNING_MESSAGE);
+    				   	//when depth isnt positive or depth is too deep
+                     if(userDepth <= 0){
+         				   JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
+         						   "ERROR", JOptionPane.ERROR_MESSAGE);
+                     }
+                     else{
+                        JOptionPane.showMessageDialog(null, "Too deep for depth! Max depth is 40 meters.", 
+         						   "ERROR", JOptionPane.ERROR_MESSAGE);
+                     }
     				   }
     			   }catch(NumberFormatException e){
     			   	//error message for all popups if not a number
-    			   	JOptionPane.showMessageDialog(null, "You have not entered an actual number!", "ERROR", JOptionPane.WARNING_MESSAGE);
+    			   	JOptionPane.showMessageDialog(null, "You have not entered an actual number!", "ERROR", JOptionPane.ERROR_MESSAGE);
     			   }
+               catch(ArrayIndexOutOfBoundsException e){
+                  //error message for residual nitrogen if diving too deep from previous dive
+    			   	JOptionPane.showMessageDialog(null, "Cannot dive this deep with amount of residual nitrogen left from last dive!  Please enter shallower depth.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                  isValidBTime = true;
+                  isValidITime = false;
+               }
     		   }
     		   else{
     		   	//when cancel is pressed from the depth popup
@@ -332,16 +360,16 @@ public class diveTable extends JFrame implements ActionListener{
     	}
     	else{
     		//you have made too many dives
-			JOptionPane.showMessageDialog(null, "You have the created TOO MANY DIVES, if you would like to create more, please delete dives", "WARNING", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "You have the created TOO MANY DIVES, if you would like to create more, please delete dives", "WARNING", JOptionPane.ERROR_MESSAGE);
     	}
    }
    
    public void deleteDive(){
     	
-    	JLabel deleteLbl = new JLabel("Are you sure you would like to delete dive number " + (diveCounter));
+    	JLabel deleteLbl = new JLabel("This will delete the newest dive.  Are you sure you would like to delete dive number " + (diveCounter) + "?");
     	
     	if(diveCounter <= 0){
-			JOptionPane.showMessageDialog(null, "You HAVE NOT CREATED any dives", "WARNING", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "You HAVE NOT CREATED any dives", "WARNING", JOptionPane.ERROR_MESSAGE);
 
     	}
     	else{
@@ -353,7 +381,7 @@ public class diveTable extends JFrame implements ActionListener{
         	//can probably use a switch statement maybe?
         	if(deleteResult == JOptionPane.OK_OPTION) //if the user is sure that the want to delete
         	{
-        		
+            userTable.remove(diveCounter-1);
             	if(diveCounter == 1){ //if you are on dive 1 set everything on dive 1 to empty
             		diveNum1.setText("");
             		depth1.setText("");
@@ -389,13 +417,46 @@ public class diveTable extends JFrame implements ActionListener{
             		surfInt5.setText("");
             		resNitro5.setText("");
             	}
+               JOptionPane.showMessageDialog(null, "Dive number " + diveCounter + " was deleted!", "Delete Successful", JOptionPane.INFORMATION_MESSAGE);
             	diveCounter -= 1;
-            	System.out.println(diveCounter);
         	}
     	}		
    }
     
-	
+	public void setTable(int diveNumber){
+      switch(diveNumber){
+         case 0 : diveNum1.setText(userTable.get(diveNumber).getDiveNum() + "");
+                  depth1.setText(userTable.get(diveNumber).getMaxDepth() + "");
+                  botTime1.setText(userTable.get(diveNumber).getBottomTime() + "");
+                  surfInt1.setText(userTable.get(diveNumber).getSurfaceInterval() + "");
+                  break;
+
+         case 1 : diveNum2.setText(userTable.get(diveNumber).getDiveNum() + "");
+                  depth2.setText(userTable.get(diveNumber).getMaxDepth() + "");
+                  botTime2.setText(userTable.get(diveNumber).getBottomTime() + "");
+                  surfInt2.setText(userTable.get(diveNumber).getSurfaceInterval() + "");
+                  break;
+                  
+         case 2 : diveNum3.setText(userTable.get(diveNumber).getDiveNum() + "");
+                  depth3.setText(userTable.get(diveNumber).getMaxDepth() + "");
+                  botTime3.setText(userTable.get(diveNumber).getBottomTime() + "");
+                  surfInt3.setText(userTable.get(diveNumber).getSurfaceInterval() + "");
+                  break;
+
+         case 3 : diveNum4.setText(userTable.get(diveNumber).getDiveNum() + "");
+                  depth4.setText(userTable.get(diveNumber).getMaxDepth() + "");
+                  botTime4.setText(userTable.get(diveNumber).getBottomTime() + "");
+                  surfInt4.setText(userTable.get(diveNumber).getSurfaceInterval() + "");
+                  break;
+                  
+         case 4 : diveNum5.setText(userTable.get(diveNumber).getDiveNum() + "");
+                  depth5.setText(userTable.get(diveNumber).getMaxDepth() + "");
+                  botTime5.setText(userTable.get(diveNumber).getBottomTime() + "");
+                  surfInt5.setText(userTable.get(diveNumber).getSurfaceInterval() + "");
+                  break;
+      }
+   }
+   
    public static void main(String[] args){
 		diveTable scuba = new diveTable();
       JOptionPane.showMessageDialog(null, "This program is a prototype and SHOULD NOT be used for ACTUAL DIVES.", "PROTOTYPE!!", JOptionPane.WARNING_MESSAGE);
