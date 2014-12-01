@@ -28,7 +28,9 @@ public class diveTable extends JFrame implements ActionListener{
 	private JComboBox depthList, botTimeList, surfIntList; //creates the actual drop down list
 															//need to still implement the surf int list
 	   
-      
+   //Accessing the dive functions
+   diveFunctions dFunction = new diveFunctions();
+   
 	public diveTable(){
 		
 		//creates the buttons to click
@@ -396,6 +398,7 @@ public class diveTable extends JFrame implements ActionListener{
 	
    public static void main(String[] args){
 		diveTable scuba = new diveTable();
+      JOptionPane.showMessageDialog(null, "This program is a prototype and SHOULD NOT be used for ACTUAL DIVES.", "PROTOTYPE!!", JOptionPane.WARNING_MESSAGE);
 		scuba.setSize(800, 300);
 		scuba.setVisible(true);
 		scuba.setDefaultCloseOperation(EXIT_ON_CLOSE);
