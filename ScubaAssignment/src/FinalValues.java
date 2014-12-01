@@ -11,7 +11,7 @@ public interface FinalValues {
 	
 	//The dive table for seeing the amount dive time based off of pressure group and max depth
 	public final int[][] timeTable = {{5, 15, 25, 30, 40, 50, 70, 80, 100, 110, 130},
-											{0}};
+											{-1, 10, 15}};
 	
 	//Dive interval portion of the table in minutes
 	public final int[][] intervalTable = {{1440},     //A
