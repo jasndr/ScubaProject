@@ -316,7 +316,7 @@ public class diveTable extends JFrame implements ActionListener{
     	             						   "ERROR", JOptionPane.ERROR_MESSAGE);
                               }
                               else{
-                                 JOptionPane.showMessageDialog(null, "Bottom time is too long!  Please enter a shorter time or shallower depth.", 
+                                 JOptionPane.showMessageDialog(null, "Bottom time is too long!  Please enter a shorter time or shallower depth.  Otherwise, enter a longer surface interval for previous dive.", 
     	             						   "ERROR", JOptionPane.ERROR_MESSAGE);
                               }
     						      }
@@ -473,7 +473,7 @@ public class diveTable extends JFrame implements ActionListener{
    
    public static void main(String[] args){
 		diveTable scuba = new diveTable();
-      JOptionPane.showMessageDialog(null, "This program is a prototype and SHOULD NOT be used for ACTUAL DIVES.", "PROTOTYPE!!", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(null, "This program is a prototype and CANNOT be used for ACTUAL DIVES.", "PROTOTYPE!!", JOptionPane.WARNING_MESSAGE);
 		scuba.setSize(800, 300);
 		scuba.setVisible(true);
 		scuba.setDefaultCloseOperation(EXIT_ON_CLOSE);
