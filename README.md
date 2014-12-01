@@ -5,18 +5,9 @@
 
 <body>
 <h2>Top priority at the moment?:</h2>
-<p>Complete Final Demo by SUN, Dec 7.  At least one meet-up the week before.</p>
+<p>Complete Final Demo by SUN, Dec 7.  At least one meet-up the week before.  Decide when to record video</p>
 
 <h2>Upcoming due dates for the project</h2>
-
-<h3>Check-in #2 -DUE SUN, Nov 23 (TA meeting 11/19)</h3>
-<p>Two page pdf document of: (Each person turns in the same copy)
- <ul>
-  <li>Revised LOC estimate for functionality and the interface (so two estimates)</li>
-  <li>At least one paragraph for the V&V activities to-date, Ex: # of test cases used, # defects found</li>
-  <li>Brief description of any deviations from original planned design reported at first check-in</li>
-</ul>
-</p>
 
 <h3>Demo and final Deliverables -DUE SUN, Dec 7</h3>
  <ul>
