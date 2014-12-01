@@ -27,8 +27,8 @@ public class diveTable extends JFrame implements ActionListener{
 	@SuppressWarnings("rawtypes")
 	private JComboBox depthList, botTimeList, surfIntList; //creates the actual drop down list
 															//need to still implement the surf int list
-	
-	
+	   
+      
 	public diveTable(){
 		
 		//creates the buttons to click
@@ -196,6 +196,8 @@ public class diveTable extends JFrame implements ActionListener{
 	 *********************************************************/
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	public void createDive() {
+      boolean isValidDepth, isValidBTime, isValidITime;
+   
     	if(diveCounter < 5){
     		//System.out.println("you are on dive number" +diveCounter); //check to see what dive 
     		//create the depth popup
@@ -220,98 +222,111 @@ public class diveTable extends JFrame implements ActionListener{
     		createSurfPopup.add(userSurfIntTxt);
     		
     		//opens the depth popup
-    		int depthResult = JOptionPane.showConfirmDialog(null, createDepthPopup, 
-    				"Create Dive #" + (diveCounter + 1) + ": DEPTH", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+         isValidDepth = false;
+         while(!isValidDepth){
+    		   int depthResult = JOptionPane.showConfirmDialog(null, createDepthPopup, 
+    	   			"Create Dive #" + (diveCounter + 1) + ": DEPTH", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
     		
-    		if(depthResult == JOptionPane.OK_OPTION)//so if the user clicks OK
-    		{
-    			//have to do a check if input is valid number
-    			try{
-    				userDepth = Integer.parseInt(userDepthTxt.getText());
-    				//System.out.println("This is the depth " + userDepth); just a check to see if input is correct
+    		   if(depthResult == JOptionPane.OK_OPTION){//so if the user clicks OK
+    		   	//have to do a check if input is valid number
+    		   	try{
+    		   		userDepth = Integer.parseInt(userDepthTxt.getText());
+    		   		//System.out.println("This is the depth " + userDepth); just a check to see if input is correct
     				
-    				if(userDepth > 0){ //checks if positive
+    		   		if(userDepth > 0){ //checks if positive
+    		   			isValidDepth = true;
+                     isValidBTime = false;
+    		   			//opens the bottom time popup
+                     while(!isValidBTime){
+    		   			   int botTimeResult = JOptionPane.showConfirmDialog(null, createBotPopup, 
+    		          				"Create Dive #" + (diveCounter + 1) + ": BOTTOM TIME", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
     					
-    					//opens the bottom time popup 
-    					int botTimeResult = JOptionPane.showConfirmDialog(null, createBotPopup, 
-    		    				"Create Dive #" + (diveCounter + 1) + ": BOTTOM TIME", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
-    					
-    					if(botTimeResult == JOptionPane.OK_OPTION){//if OK 
+    		   			   if(botTimeResult == JOptionPane.OK_OPTION){//if OK 
     						
-    						//parse input into a int
-    						userBotTime = Integer.parseInt(userBotTimeTxt.getText());
-    						//System.out.println("This is the bottom time " + userBotTime); just a check to see input
+    		   			   	//parse input into a int
+    		   			   	userBotTime = Integer.parseInt(userBotTimeTxt.getText());
+    		   			   	//System.out.println("This is the bottom time " + userBotTime); just a check to see input
     						
-    						if(userBotTime > 0){//if positive
+    		   			   	if(userBotTime > 0){//if positive
+    							      isValidBTime = true;
+                              isValidITime = false;
+    							      //opens surface interval popup
+                              while(!isValidITime){
+    							         int surfIntResult = JOptionPane.showConfirmDialog(null, createSurfPopup, 
+    	    		          				   "Create Dive #" + (diveCounter + 1)+ ": SURFACE INTERVAL", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
     							
-    							//opens surface interval popup
-    							int surfIntResult = JOptionPane.showConfirmDialog(null, createSurfPopup, 
-    	    		    				"Create Dive #" + (diveCounter + 1)+ ": SURFACE INTERVAL", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
-    							
-    							if(surfIntResult == JOptionPane.OK_OPTION){ //if OK
+    							         if(surfIntResult == JOptionPane.OK_OPTION){ //if OK
     								
-    								//parse input into an int
-    								userSurfInt = Integer.parseInt(userSurfIntTxt.getText());
-    								//System.out.println("This is the surface interval " + userSurfInt); just a check to see input
+    							      	   //parse input into an int
+    							      	   userSurfInt = Integer.parseInt(userSurfIntTxt.getText());
+    							      	   //System.out.println("This is the surface interval " + userSurfInt); just a check to see input
     								
-    								if(userSurfInt > 0){
-    									//all input is valid
-    									//call on kris's class and send 
-    									//userDepth = for depth
-    									//userBotTime = for bottom time
-    									//userSurfInt = for surface interval
-    									//get return and set in the various labels
-    									//this if statement is getting too long
-    									//we can make a new method that can store the info
-    									//using a switch statement based on the diveCounter
+    							   	      if(userSurfInt > 0){
+                                       isValidITime = true;
+    							   	   	   //all input is valid
+    							   	   	   //call on kris's class and send 
+    							   	   	   //userDepth = for depth
+    							   	   	   //userBotTime = for bottom time
+    							   		      //userSurfInt = for surface interval
+    							   		      //get return and set in the various labels
+    							   		      //this if statement is getting too long
+    							   		      //we can make a new method that can store the info
+    							   		      //using a switch statement based on the diveCounter
     									
-    									diveCounter += 1; //increment dive counter
-    									
-    									/*for testing purposes, will always store information
-    									 * on the first row of the dive table just seeing if
-    									 * i can delete a row 
-    									diveNum1.setText(diveCounter + "");
-    									depth1.setText(userDepth + "");
-    									botTime1.setText(userBotTime + "");
-    									surfInt1.setText(userSurfInt + "");*/
-    								}
-    								else{
-    									//when the surface interval isnt positive
-    	    	        				JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
-    	    	        						"ERROR", JOptionPane.WARNING_MESSAGE);
-    								}	
-    							}
-    							else{
-    								//when cancel is pressed from the surface popup
-    	    		    			JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
-    							}
-    							
-    						}
-    						else{
-    							//when bottom time isnt positive
-    	        				JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
-    	        						"ERROR", JOptionPane.WARNING_MESSAGE);
-    						}
-    					}
-    					else{
-    						//when cancel is pressed from the bottom time popup
-    		    			JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
-    					}
-    				}
-    				else{
-    					//when depth isnt positive
-        				JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
-        						"ERROR", JOptionPane.WARNING_MESSAGE);
-    				}
-    			}catch(NumberFormatException e){
-    				//error message for all popups if not a number
-    				JOptionPane.showMessageDialog(null, "You have not entered an actual number!", "ERROR", JOptionPane.WARNING_MESSAGE);
-    			}
-    		}
-    		else{
-    			//when cancel is pressed from the depth popup
-    			JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
-    		}	
+    							   		      diveCounter += 1; //increment dive counter
+    									   
+    							   		      /*for testing purposes, will always store information
+    							   		       * on the first row of the dive table just seeing if
+    							   		       * i can delete a row 
+    							   		      diveNum1.setText(diveCounter + "");
+    							   		      depth1.setText(userDepth + "");
+    							   		      botTime1.setText(userBotTime + "");
+    							   		      surfInt1.setText(userSurfInt + "");*/
+    							   	      }
+    								         else{
+    								         	//when the surface interval isnt positive
+    	    	         				      JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
+    	    	         				      		"ERROR", JOptionPane.WARNING_MESSAGE);
+    								         }	
+    							         }
+    							         else{
+    							         	//when cancel is pressed from the surface popup
+    	    		             			//JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
+                                    isValidBTime = false;
+                                    isValidITime = true;
+    							         }
+                              }
+    						      }
+    						      else{
+    						      	//when bottom time isnt positive
+    	             				JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
+    	             						"ERROR", JOptionPane.WARNING_MESSAGE);
+    						      }
+    					      }
+    					      else{
+    					      	//when cancel is pressed from the bottom time popup
+    		          			//JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
+                           isValidDepth = false;
+                           isValidBTime = true;
+    					      }
+                     }
+    				   }
+    				   else{
+    				   	//when depth isnt positive
+         				JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
+         						"ERROR", JOptionPane.WARNING_MESSAGE);
+    				   }
+    			   }catch(NumberFormatException e){
+    			   	//error message for all popups if not a number
+    			   	JOptionPane.showMessageDialog(null, "You have not entered an actual number!", "ERROR", JOptionPane.WARNING_MESSAGE);
+    			   }
+    		   }
+    		   else{
+    		   	//when cancel is pressed from the depth popup
+    		   	JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
+               isValidDepth = true;
+    		   }
+         }
     	}
     	else{
     		//you have made too many dives
