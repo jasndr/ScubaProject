@@ -1,4 +1,3 @@
-
 public interface FinalValues {
 
 	//CHANGING MOST OF THESE VALUES.  DO NOT USE FOR FINAL TABLE!

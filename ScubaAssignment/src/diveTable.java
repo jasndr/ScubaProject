@@ -25,16 +25,14 @@ public class diveTable extends JFrame implements ActionListener{
 	private JLabel userDepthLbl, userBotTimeLbl, userSurfIntLbl;
 	private JPanel createDepthPopup, createBotPopup, createSurfPopup;
 	@SuppressWarnings("rawtypes")
-	//private JComboBox depthList, botTimeList, surfIntList; //creates the actual drop down list
-															//need to still implement the surf int list
-                                             //Do we still need this? -Kris
+
 	   
    //Accessing the dive functions and storing data
    diveFunctions dFunctions = new diveFunctions();
    ArrayList<DiveStruct> userTable = new ArrayList<DiveStruct>();
    
 	public diveTable(){
-		
+		setTitle("This program is a prototype and CANNOT be used for ACTUAL DIVES.");
 		//creates the buttons to click
 		createDive = new JButton("Create Dive");
 		createDive.addActionListener(new ActionListener(){
