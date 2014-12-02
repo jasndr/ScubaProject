@@ -200,13 +200,13 @@ public class diveTable extends JFrame implements ActionListener{
 	 *********************************************************/
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	public void createDive() {
-      boolean isValidDepth, isValidBTime, isValidITime;
-      int userDepth, userBotTime, userSurfInt; //Moved these values here since don't need to use them outside of this method
-	   int rNitrogen = 0;
-	   int maxDepthIndex = -1;
-	   int bottomTimeIndex = -1;
-	   int surfaceIntervalIndex = -1;
-   
+    	boolean isValidDepth, isValidBTime, isValidITime;
+    	int userDepth, userBotTime, userSurfInt; //Moved these values here since don't need to use them outside of this method
+    	int rNitrogen = 0;
+    	int maxDepthIndex = -1;
+    	int bottomTimeIndex = -1;
+    	int surfaceIntervalIndex = -1;
+
     	if(diveCounter < 5){
     		//System.out.println("you are on dive number" +diveCounter); //check to see what dive 
     		//create the depth popup
@@ -215,154 +215,154 @@ public class diveTable extends JFrame implements ActionListener{
     		createDepthPopup = new JPanel(new GridLayout(0,1));
     		createDepthPopup.add(userDepthLbl);
     		createDepthPopup.add(userDepthTxt);
-    		
+
     		//create the bottom time popup
     		userBotTimeTxt = new JTextField();
     		userBotTimeLbl = new JLabel("Enter your desired BOTTOM TIME in minutes."); //lol you had meters here instead of minutes.
     		createBotPopup = new JPanel(new GridLayout(0,1));
     		createBotPopup.add(userBotTimeLbl);
     		createBotPopup.add(userBotTimeTxt);
-    		
+
     		//create the surface interval popup
     		userSurfIntTxt = new JTextField();
     		userSurfIntLbl = new JLabel("Enter your desired SURFACE INTERVAL in minutes.");
     		createSurfPopup = new JPanel(new GridLayout(0,1));
     		createSurfPopup.add(userSurfIntLbl);
     		createSurfPopup.add(userSurfIntTxt);
-    		
+
     		//opens the depth popup
-         isValidDepth = false;
-         while(!isValidDepth){
-    		   int depthResult = JOptionPane.showConfirmDialog(null, createDepthPopup, 
-    	   			"Create Dive #" + (diveCounter + 1) + ": DEPTH", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
-    		
-    		   if(depthResult == JOptionPane.OK_OPTION){//so if the user clicks OK
-    		   	//have to do a check if input is valid number
-    		   	try{
-    		   		userDepth = Integer.parseInt(userDepthTxt.getText());
-    		   		//System.out.println("This is the depth " + userDepth); just a check to see if input is correct
-                  maxDepthIndex = dFunctions.maxDepthIndex(userDepth);
-    				
-    		   		if(userDepth > 0 && maxDepthIndex >= 0){ //checks if positive and if the value is valid on the chart
-    		   			isValidDepth = true;
-                     isValidBTime = false;
-    		   			//opens the bottom time popup
-                     while(!isValidBTime){
-    		   			   int botTimeResult = JOptionPane.showConfirmDialog(null, createBotPopup, 
-    		          				"Create Dive #" + (diveCounter + 1) + ": BOTTOM TIME", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
-    					
-    		   			   if(botTimeResult == JOptionPane.OK_OPTION){//if OK 
-    						
-    		   			   	//parse input into a int
-    		   			   	userBotTime = Integer.parseInt(userBotTimeTxt.getText());
-    		   			   	//System.out.println("This is the bottom time " + userBotTime); just a check to see input
-                           if(diveCounter > 0){
-                              rNitrogen = FinalValues.nitrogenTable[userTable.get(diveCounter-1).getSurfaceIntervalIndex()][maxDepthIndex];
-                              bottomTimeIndex = dFunctions.diveTimeIndex(maxDepthIndex, userBotTime+rNitrogen);
-                           }
-                           else{
-                              bottomTimeIndex = dFunctions.diveTimeIndex(maxDepthIndex, userBotTime);
-                           }
-    						
-    		   			   	if(userBotTime > 0 && bottomTimeIndex >= 0){//if positive and time isn't too long
-    							      isValidBTime = true;
-                              isValidITime = false;
-    							      //opens surface interval popup
-                              while(!isValidITime){
-    							         int surfIntResult = JOptionPane.showConfirmDialog(null, createSurfPopup, 
-    	    		          				   "Create Dive #" + (diveCounter + 1)+ ": SURFACE INTERVAL", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
-    							
-    							         if(surfIntResult == JOptionPane.OK_OPTION){ //if OK
-    								
-    							      	   //parse input into an int
-    							      	   userSurfInt = Integer.parseInt(userSurfIntTxt.getText());
-    							      	   //System.out.println("This is the surface interval " + userSurfInt); just a check to see input
-                                    surfaceIntervalIndex = dFunctions.surfaceIndex(bottomTimeIndex, userSurfInt);
-    								
-    							   	      if(userSurfInt >= 10 && surfaceIntervalIndex >= 0){
-                                       isValidITime = true;
-    							   	   	   //all input is valid!!!!!!!!!!!!!!!!!!!!!!! <Midpoint of giant code lol
-                                       
-                                       DiveStruct dives = new DiveStruct(diveCounter+1, userDepth, userBotTime, userSurfInt, rNitrogen, surfaceIntervalIndex); //store dive information
-                                       userTable.add(dives);
-                                       setTable(diveCounter);
-    							   		      diveCounter += 1; //increment dive counter
-    							   	      }
-    								         else{
-    								         	//when the surface interval isnt positive
-                                       if(userSurfInt < 10){
-    	    	         				         JOptionPane.showMessageDialog(null, "Must have at least 10min interval! (for single dive, simply enter 10)", 
-    	    	         				      		   "ERROR", JOptionPane.ERROR_MESSAGE);
-                                       }
-                                       else
-                                       {
-                                          JOptionPane.showMessageDialog(null, "Interval is too long! Maximum is 24hrs (1440mins)", 
-    	    	         				      		   "ERROR", JOptionPane.ERROR_MESSAGE);
-                                       }
-    								         }	
-    							         }
-    							         else{
-    							         	//when cancel is pressed from the surface popup
-    	    		             			//JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
-                                    isValidBTime = false;
-                                    isValidITime = true;
-    							         }
-                              }
-    						      }
-    						      else{
-    						      	//when bottom time isnt positive
-                              if(userBotTime <= 0){
-    	             				   JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
-    	             						   "ERROR", JOptionPane.ERROR_MESSAGE);
-                              }
-                              else{
-                                 JOptionPane.showMessageDialog(null, "Bottom time is too long!  Please enter a shorter time or shallower depth.  Otherwise, enter a longer surface interval for previous dive.", 
-    	             						   "ERROR", JOptionPane.ERROR_MESSAGE);
-                              }
-    						      }
-    					      }
-    					      else{
-    					      	//when cancel is pressed from the bottom time popup
-    		          			//JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
-                           isValidDepth = false;
-                           isValidBTime = true;
-    					      }
-                     }
-    				   }
-    				   else{
-    				   	//when depth isnt positive or depth is too deep
-                     if(userDepth <= 0){
-         				   JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
-         						   "ERROR", JOptionPane.ERROR_MESSAGE);
-                     }
-                     else{
-                        JOptionPane.showMessageDialog(null, "Too deep for depth! Max depth is 40 meters.", 
-         						   "ERROR", JOptionPane.ERROR_MESSAGE);
-                     }
-    				   }
-    			   }catch(NumberFormatException e){
-    			   	//error message for all popups if not a number
-    			   	JOptionPane.showMessageDialog(null, "You have not entered an actual number!", "ERROR", JOptionPane.ERROR_MESSAGE);
-    			   }
-               catch(ArrayIndexOutOfBoundsException e){
-                  //error message for residual nitrogen if diving too deep from previous dive
-    			   	JOptionPane.showMessageDialog(null, "Cannot dive this deep with amount of residual nitrogen left from last dive!  Please enter shallower depth.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                  isValidBTime = true;
-                  isValidITime = false;
-               }
-    		   }
-    		   else{
-    		   	//when cancel is pressed from the depth popup
-    		   	JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
-               isValidDepth = true;
-    		   }
-         }
+    		isValidDepth = false;
+    		while(!isValidDepth){
+    			int depthResult = JOptionPane.showConfirmDialog(null, createDepthPopup, 
+    					"Create Dive #" + (diveCounter + 1) + ": DEPTH", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+
+    			if(depthResult == JOptionPane.OK_OPTION){//so if the user clicks OK
+    				//have to do a check if input is valid number
+    				try{
+    					userDepth = Integer.parseInt(userDepthTxt.getText());
+    					//System.out.println("This is the depth " + userDepth); just a check to see if input is correct
+    					maxDepthIndex = dFunctions.maxDepthIndex(userDepth);
+
+    					if(userDepth > 0 && maxDepthIndex >= 0){ //checks if positive and if the value is valid on the chart
+    						isValidDepth = true;
+    						isValidBTime = false;
+    						//opens the bottom time popup
+    						while(!isValidBTime){
+    							int botTimeResult = JOptionPane.showConfirmDialog(null, createBotPopup, 
+    									"Create Dive #" + (diveCounter + 1) + ": BOTTOM TIME", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+
+    							if(botTimeResult == JOptionPane.OK_OPTION){//if OK 
+
+    								//parse input into a int
+    								userBotTime = Integer.parseInt(userBotTimeTxt.getText());
+    								//System.out.println("This is the bottom time " + userBotTime); just a check to see input
+    								if(diveCounter > 0){
+    									rNitrogen = FinalValues.nitrogenTable[userTable.get(diveCounter-1).getSurfaceIntervalIndex()][maxDepthIndex];
+    									bottomTimeIndex = dFunctions.diveTimeIndex(maxDepthIndex, userBotTime+rNitrogen);
+    								}
+    								else{
+    									bottomTimeIndex = dFunctions.diveTimeIndex(maxDepthIndex, userBotTime);
+    								}
+
+    								if(userBotTime > 0 && bottomTimeIndex >= 0){//if positive and time isn't too long
+    									isValidBTime = true;
+    									isValidITime = false;
+    									//opens surface interval popup
+    									while(!isValidITime){
+    										int surfIntResult = JOptionPane.showConfirmDialog(null, createSurfPopup, 
+    												"Create Dive #" + (diveCounter + 1)+ ": SURFACE INTERVAL", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+
+    										if(surfIntResult == JOptionPane.OK_OPTION){ //if OK
+
+    											//parse input into an int
+    											userSurfInt = Integer.parseInt(userSurfIntTxt.getText());
+    											//System.out.println("This is the surface interval " + userSurfInt); just a check to see input
+    											surfaceIntervalIndex = dFunctions.surfaceIndex(bottomTimeIndex, userSurfInt);
+
+    											if(userSurfInt >= 10 && surfaceIntervalIndex >= 0){
+    												isValidITime = true;
+    												//all input is valid!!!!!!!!!!!!!!!!!!!!!!! <Midpoint of giant code lol
+
+    												DiveStruct dives = new DiveStruct(diveCounter+1, userDepth, userBotTime, userSurfInt, rNitrogen, surfaceIntervalIndex); //store dive information
+    												userTable.add(dives);
+    												setTable(diveCounter);
+    												diveCounter += 1; //increment dive counter
+    											}
+    											else{
+    												//when the surface interval isnt positive
+    												if(userSurfInt < 10){
+    													JOptionPane.showMessageDialog(null, "Must have at least 10min interval! (for single dive, simply enter 10)", 
+    															"ERROR", JOptionPane.ERROR_MESSAGE);
+    												}
+    												else
+    												{
+    													JOptionPane.showMessageDialog(null, "Interval is too long! Maximum is 24hrs (1440mins)", 
+    															"ERROR", JOptionPane.ERROR_MESSAGE);
+    												}
+    											}	
+    										}
+    										else{
+    											//when cancel is pressed from the surface popup
+    											//JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
+    											isValidBTime = false;
+    											isValidITime = true;
+    										}
+    									}
+    								}
+    								else{
+    									//when bottom time isnt positive
+    									if(userBotTime <= 0){
+    										JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
+    												"ERROR", JOptionPane.ERROR_MESSAGE);
+    									}
+    									else{
+    										JOptionPane.showMessageDialog(null, "Bottom time is too long!  Please enter a shorter time or shallower depth.  Otherwise, enter a longer surface interval for previous dive.", 
+    												"ERROR", JOptionPane.ERROR_MESSAGE);
+    									}
+    								}
+    							}
+    							else{
+    								//when cancel is pressed from the bottom time popup
+    								//JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
+    								isValidDepth = false;
+    								isValidBTime = true;
+    							}
+    						}
+    					}
+    					else{
+    						//when depth isnt positive or depth is too deep
+    						if(userDepth <= 0){
+    							JOptionPane.showMessageDialog(null, "You have entered a non-positive number!", 
+    									"ERROR", JOptionPane.ERROR_MESSAGE);
+    						}
+    						else{
+    							JOptionPane.showMessageDialog(null, "Too deep for depth! Max depth is 40 meters.", 
+    									"ERROR", JOptionPane.ERROR_MESSAGE);
+    						}
+    					}
+    				}catch(NumberFormatException e){
+    					//error message for all popups if not a number
+    					JOptionPane.showMessageDialog(null, "You have not entered an actual number!", "ERROR", JOptionPane.ERROR_MESSAGE);
+    				}
+    				catch(ArrayIndexOutOfBoundsException e){
+    					//error message for residual nitrogen if diving too deep from previous dive
+    					JOptionPane.showMessageDialog(null, "Cannot dive this deep with amount of residual nitrogen left from last dive!  Please enter shallower depth.", "ERROR", JOptionPane.ERROR_MESSAGE);
+    					isValidBTime = true;
+    					isValidITime = false;
+    				}
+    			}
+    			else{
+    				//when cancel is pressed from the depth popup
+    				JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
+    				isValidDepth = true;
+    			}
+    		}
     	}
     	else{
     		//you have made too many dives
-			JOptionPane.showMessageDialog(null, "You have the created TOO MANY DIVES, if you would like to create more, please delete dives", "WARNING", JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "You have the created TOO MANY DIVES, if you would like to create more, please delete dives", "WARNING", JOptionPane.ERROR_MESSAGE);
     	}
-   }
+    }
    
    public void deleteDive(){
     	
