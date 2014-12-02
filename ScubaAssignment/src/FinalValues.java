@@ -9,8 +9,16 @@ public interface FinalValues {
 	public final int[] maxDepth = {12, 15, 18, 21, 24, 27, 30, 33, 36, 40};
 	
 	//The dive table for seeing the amount dive time based off of pressure group and max depth
-	public final int[][] timeTable = {{5, 15, 25, 30, 40, 50, 70, 80, 100, 110, 130},
-											{-1, 10, 15}};
+	public final int[][] timeTable = {{5, 15, 25, 30, 40, 50, 70, 80, 100, 110, 130}, //12 meters
+											{-1, 10, 15, 25, 30, 40, 50, 60, 70, 80}, //15 meters
+									{-1, 10, 15, 20, 25, 30, 40, 50, 55},     //18 meters
+									{-1, 5, 10, 15, 20, 30, 35, 40, 45},      //21 meters
+									{-1, 5, 10, 15, 20, 25, 30, 35},		  //24 meters
+									{-1, 5, 10, 12, 15, 20, 22},              //27 meters
+									{-1, 5, 7, 10, 15, 20, 22},               //30 meters
+									{-1, -1, 5, 10, 13, 15},                  //33 meters
+									{-1, -1, 5, 10, 12},                      //36 meters
+									{-1, -1, 5, 8}};                          //39 meters
 	
 	//Dive interval portion of the table in minutes
 	public final int[][] intervalTable = {{1440},     //A
