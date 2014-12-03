@@ -12,12 +12,12 @@ public class diveTable extends JFrame implements ActionListener{
 	private Container mainWindow;
 	private JPanel  buttonGroup, table;
 	private JButton createDive , deleteDive;
-	private JLabel diveNum, depth, botTime, surfInt, resNitro;
-	private JLabel diveNum1, depth1, botTime1, surfInt1, resNitro1;
-	private JLabel diveNum2, depth2, botTime2, surfInt2, resNitro2;
-	private JLabel diveNum3, depth3, botTime3, surfInt3, resNitro3;
-	private JLabel diveNum4, depth4, botTime4, surfInt4, resNitro4;
-	private JLabel diveNum5, depth5, botTime5, surfInt5, resNitro5;
+	private JLabel diveNum, depth, botTime, surfInt, resNitro, decompStop;
+	private JLabel diveNum1, depth1, botTime1, surfInt1, resNitro1, decompStop1;
+	private JLabel diveNum2, depth2, botTime2, surfInt2, resNitro2, decompStop2;
+	private JLabel diveNum3, depth3, botTime3, surfInt3, resNitro3, decompStop3;
+	private JLabel diveNum4, depth4, botTime4, surfInt4, resNitro4, decompStop4;
+	private JLabel diveNum5, depth5, botTime5, surfInt5, resNitro5, decompStop5;
 	
 	//used for the create dive popup
 	private int diveCounter = 0;
@@ -77,6 +77,8 @@ public class diveTable extends JFrame implements ActionListener{
 		surfInt.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		resNitro = new JLabel("Residual Nitrogen", SwingConstants.CENTER);
 		resNitro.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		decompStop = new JLabel("<html>Decompression Stop<br>(5 meter depth)</html>", SwingConstants.CENTER);
+		decompStop.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		//this creates the first row of input's components
 		diveNum1 = new JLabel("" ,SwingConstants.CENTER); //centers the words
@@ -89,6 +91,8 @@ public class diveTable extends JFrame implements ActionListener{
 		surfInt1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		resNitro1 = new JLabel("" ,SwingConstants.CENTER);
 		resNitro1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		decompStop1 = new JLabel("" ,SwingConstants.CENTER);
+		decompStop1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		//this creates the second row of input's components
 		diveNum2 = new JLabel("" ,SwingConstants.CENTER); //centers the words
@@ -101,7 +105,8 @@ public class diveTable extends JFrame implements ActionListener{
 		surfInt2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		resNitro2 = new JLabel("" ,SwingConstants.CENTER);
 		resNitro2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
+		decompStop2 = new JLabel("" ,SwingConstants.CENTER);
+		decompStop2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		//this creates the third row of input's components
 		diveNum3 = new JLabel("" ,SwingConstants.CENTER); //centers the words
@@ -114,6 +119,8 @@ public class diveTable extends JFrame implements ActionListener{
 		surfInt3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		resNitro3 = new JLabel("" ,SwingConstants.CENTER);
 		resNitro3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		decompStop3 = new JLabel("" ,SwingConstants.CENTER);
+		decompStop3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		//this creates the fourth row of input's components 
 		diveNum4 = new JLabel("" ,SwingConstants.CENTER);//centers the words
@@ -126,6 +133,8 @@ public class diveTable extends JFrame implements ActionListener{
 		surfInt4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		resNitro4 = new JLabel("" ,SwingConstants.CENTER);
 		resNitro4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		decompStop4 = new JLabel("" ,SwingConstants.CENTER);
+		decompStop4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		//this creates the fifth row of input's components
 		diveNum5 = new JLabel("" ,SwingConstants.CENTER); //centers the words
@@ -138,48 +147,56 @@ public class diveTable extends JFrame implements ActionListener{
 		surfInt5.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		resNitro5 = new JLabel("" ,SwingConstants.CENTER);
 		resNitro5.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		decompStop5 = new JLabel("" ,SwingConstants.CENTER);
+		decompStop5.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		/******************************************
 		 *creates a grid to add the components into 
 		******************************************/
 		table = new JPanel();
-		table.setLayout(new GridLayout(6, 5));
+		table.setLayout(new GridLayout(7, 5));
 
 		table.add(diveNum); //title
 		table.add(depth);
 		table.add(botTime);
 		table.add(surfInt);
 		table.add(resNitro);
+		table.add(decompStop);
 		
 		table.add(diveNum1); //1st row
 		table.add(depth1);
 		table.add(botTime1);
 		table.add(surfInt1);
 		table.add(resNitro1);
+		table.add(decompStop1);
 		
 		table.add(diveNum2); //2nd row
 		table.add(depth2);
 		table.add(botTime2);
 		table.add(surfInt2);
 		table.add(resNitro2);
+		table.add(decompStop2);
 		
 		table.add(diveNum3); //3rd row
 		table.add(depth3);
 		table.add(botTime3);
 		table.add(surfInt3);
 		table.add(resNitro3);
+		table.add(decompStop3);
 		
 		table.add(diveNum4); //4th row
 		table.add(depth4);
 		table.add(botTime4);
 		table.add(surfInt4);
 		table.add(resNitro4);
+		table.add(decompStop4);
 		
 		table.add(diveNum5); //5th row
 		table.add(depth5);
 		table.add(botTime5);
 		table.add(surfInt5);
 		table.add(resNitro5);
+		table.add(decompStop5);
 		
 		/*****************************************************
 		 * the main panel to put together the buttons and grid

@@ -47,13 +47,13 @@ public class mainHub extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e)
 			{
 				diveTable scuba = new diveTable();
-				scuba.setSize(800, 300);
+				scuba.setSize(900, 350);
 				scuba.setVisible(true);
-				//table.setEnabled(false); to turn off button
-											//cant seem to figure out how to turn it back on when window closed
+				//table.setEnabled(false); //to turn off button
+				 	//cant seem to figure out how to turn it back on when window closed
 			}
 		});
-		
+      
 		/**
 		 * this creates the button for NAUI Table Reference
 		 * a reference to the NAUI dive table
@@ -71,7 +71,6 @@ public class mainHub extends JFrame implements ActionListener{
 				//tableRef.setEnabled(false); to turn of button
 											//cant seem to figure out how to turn it back on when window closed
 			}
-		
 		});
 		tableRef.setEnabled(true);
 		
