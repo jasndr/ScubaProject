@@ -229,6 +229,7 @@ public class diveTable extends JFrame implements ActionListener{
     	int maxDepthIndex = -1;
     	int bottomTimeIndex = -1;
     	int surfaceIntervalIndex = -1;
+    	int decompressionMins;
 
     	if(diveCounter < 5){
     		//System.out.println("you are on dive number" +diveCounter); //check to see what dive 
@@ -306,7 +307,8 @@ public class diveTable extends JFrame implements ActionListener{
     												isValidITime = true;
     												//all input is valid!!!!!!!!!!!!!!!!!!!!!!! <Midpoint of giant code lol
 
-    												DiveStruct dives = new DiveStruct(diveCounter+1, userDepth, userBotTime, userSurfInt, rNitrogen, surfaceIntervalIndex); //store dive information
+    												decompressionMins = dFunctions.decompStopMins(maxDepthIndex, bottomTimeIndex);
+    												DiveStruct dives = new DiveStruct(diveCounter+1, userDepth, userBotTime, userSurfInt, rNitrogen, surfaceIntervalIndex, decompressionMins); //store dive information
     												userTable.add(dives);
     												setTable(diveCounter);
     												diveCounter += 1; //increment dive counter
@@ -404,48 +406,53 @@ public class diveTable extends JFrame implements ActionListener{
         	//can probably use a switch statement maybe?
         	if(deleteResult == JOptionPane.OK_OPTION) //if the user is sure that the want to delete
         	{
-            userTable.remove(diveCounter-1);
-            	if(diveCounter == 1){ //if you are on dive 1 set everything on dive 1 to empty
-            		diveNum1.setText("");
-            		depth1.setText("");
-            		botTime1.setText("");
-            		surfInt1.setText("");
-            		resNitro1.setText("");
-            	}
-            	else if(diveCounter == 2){
-            		diveNum2.setText("");
-            		depth2.setText("");
-            		botTime2.setText("");
-            		surfInt2.setText("");
-            		resNitro2.setText("");
-                  resNitro1.setText("N/A till next dive info");
-            	}
-            	else if(diveCounter == 3){
-            		diveNum3.setText("");
-            		depth3.setText("");
-            		botTime3.setText("");
-            		surfInt3.setText("");
-            		resNitro3.setText("");
-                  resNitro2.setText("N/A till next dive info");
-            	}
-            	else if(diveCounter == 4){
-            		diveNum4.setText("");
-            		depth4.setText("");
-            		botTime4.setText("");
-            		surfInt4.setText("");
-            		resNitro4.setText("");
-                  resNitro3.setText("N/A till next dive info");
-            	}
-            	else if(diveCounter == 5){
-            		diveNum5.setText("");
-            		depth5.setText("");
-            		botTime5.setText("");
-            		surfInt5.setText("");
-            		resNitro5.setText("");
-                  resNitro4.setText("N/A till next dive info");
-            	}
-               JOptionPane.showMessageDialog(null, "Dive number " + diveCounter + " was deleted!", "Delete Successful", JOptionPane.INFORMATION_MESSAGE);
-            	diveCounter -= 1;
+        		userTable.remove(diveCounter-1);
+        		if(diveCounter == 1){ //if you are on dive 1 set everything on dive 1 to empty
+        			diveNum1.setText("");
+        			depth1.setText("");
+        			botTime1.setText("");
+        			surfInt1.setText("");
+        			resNitro1.setText("");
+        			decompStop1.setText("");
+        		}
+        		else if(diveCounter == 2){
+        			diveNum2.setText("");
+        			depth2.setText("");
+        			botTime2.setText("");
+        			surfInt2.setText("");
+        			resNitro2.setText("");
+        			resNitro1.setText("N/A till next dive info");
+        			decompStop2.setText("");
+        		}
+        		else if(diveCounter == 3){
+        			diveNum3.setText("");
+        			depth3.setText("");
+        			botTime3.setText("");
+        			surfInt3.setText("");
+        			resNitro3.setText("");
+        			resNitro2.setText("N/A till next dive info");
+        			decompStop3.setText("");
+        		}
+        		else if(diveCounter == 4){
+        			diveNum4.setText("");
+        			depth4.setText("");
+        			botTime4.setText("");
+        			surfInt4.setText("");
+        			resNitro4.setText("");
+        			resNitro3.setText("N/A till next dive info");
+        			decompStop4.setText("");
+        		}
+        		else if(diveCounter == 5){
+        			diveNum5.setText("");
+        			depth5.setText("");
+        			botTime5.setText("");
+        			surfInt5.setText("");
+        			resNitro5.setText("");
+        			resNitro4.setText("N/A till next dive info");
+        			decompStop5.setText("");
+        		}
+        		JOptionPane.showMessageDialog(null, "Dive number " + diveCounter + " was deleted!", "Delete Successful", JOptionPane.INFORMATION_MESSAGE);
+        		diveCounter -= 1;
         	}
     	}		
    }
@@ -456,8 +463,8 @@ public class diveTable extends JFrame implements ActionListener{
                   depth1.setText(userTable.get(diveNumber).getMaxDepth() + "");
                   botTime1.setText(userTable.get(diveNumber).getBottomTime() + "");
                   surfInt1.setText(userTable.get(diveNumber).getSurfaceInterval() + "");
-                  //resNitro1.setText(userTable.get(diveNumber).getResNitrogen() + "");
                   resNitro1.setText("N/A till next dive info");
+                  decompStop1.setText(userTable.get(diveNumber).getDecompressionMins() + " mins");
                   break;
 
          case 1 : diveNum2.setText(userTable.get(diveNumber).getDiveNum() + "");
@@ -466,6 +473,7 @@ public class diveTable extends JFrame implements ActionListener{
                   surfInt2.setText(userTable.get(diveNumber).getSurfaceInterval() + "");
                   resNitro1.setText(userTable.get(diveNumber).getResNitrogen() + "");
                   resNitro2.setText("N/A till next dive info");
+                  decompStop2.setText(userTable.get(diveNumber).getDecompressionMins() + " mins");
                   break;
                   
          case 2 : diveNum3.setText(userTable.get(diveNumber).getDiveNum() + "");
@@ -474,6 +482,7 @@ public class diveTable extends JFrame implements ActionListener{
                   surfInt3.setText(userTable.get(diveNumber).getSurfaceInterval() + "");
                   resNitro2.setText(userTable.get(diveNumber).getResNitrogen() + "");
                   resNitro3.setText("N/A till next dive info");
+                  decompStop3.setText(userTable.get(diveNumber).getDecompressionMins() + " mins");
                   break;
 
          case 3 : diveNum4.setText(userTable.get(diveNumber).getDiveNum() + "");
@@ -482,6 +491,7 @@ public class diveTable extends JFrame implements ActionListener{
                   surfInt4.setText(userTable.get(diveNumber).getSurfaceInterval() + "");
                   resNitro3.setText(userTable.get(diveNumber).getResNitrogen() + "");
                   resNitro4.setText("N/A till next dive info");
+                  decompStop4.setText(userTable.get(diveNumber).getDecompressionMins() + " mins");
                   break;
                   
          case 4 : diveNum5.setText(userTable.get(diveNumber).getDiveNum() + "");
@@ -490,6 +500,7 @@ public class diveTable extends JFrame implements ActionListener{
                   surfInt5.setText(userTable.get(diveNumber).getSurfaceInterval() + "");
                   resNitro4.setText(userTable.get(diveNumber).getResNitrogen() + "");
                   resNitro5.setText("N/A till next dive info");
+                  decompStop5.setText(userTable.get(diveNumber).getDecompressionMins() + " mins");
                   break;
       }
    }

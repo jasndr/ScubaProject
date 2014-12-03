@@ -5,16 +5,18 @@ public class DiveStruct {
 	private int surfaceInterval;
 	private int surfaceIntervalIndex;
 	private int resNitrogen;
+	private int decompressionMins;
 
 	public DiveStruct(){
 	}
-	public DiveStruct(int diveNum, int maxDepth, int bottomTime, int surfaceInterval, int resNitrogen, int surfaceIntervalIndex){
+	public DiveStruct(int diveNum, int maxDepth, int bottomTime, int surfaceInterval, int resNitrogen, int surfaceIntervalIndex, int decompressionMins){
 		this.diveNum = diveNum;
 		this.maxDepth = maxDepth;
 		this.bottomTime = bottomTime;
 		this.surfaceInterval = surfaceInterval;
 		this.surfaceIntervalIndex = surfaceIntervalIndex;
 		this.resNitrogen = resNitrogen;
+		this.decompressionMins = decompressionMins;
 	}
 
 	public void setDiveNum(int diveNum){
@@ -31,6 +33,9 @@ public class DiveStruct {
 	}
 	public void setSurfaceIntervalIndex(int surfaceIntervalIndex){
 		this.surfaceIntervalIndex = surfaceIntervalIndex;
+	}
+	public void setDecompressionMins(int decompressionMins){
+		this.decompressionMins = decompressionMins;
 	}
 
 	public int getDiveNum(){
@@ -50,5 +55,8 @@ public class DiveStruct {
 	}
 	public int getResNitrogen(){
 		return resNitrogen;
+	}
+	public int getDecompressionMins(){
+		return decompressionMins;
 	}
 }

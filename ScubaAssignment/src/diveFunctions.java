@@ -29,4 +29,13 @@ public class diveFunctions{
 	   }
 	   return -1;
    }
+   
+   public int decompStopMins(int maxDepthIndex, int bottomTimeIndex){ //Figures out if user needs to stop for decompression, and for how many mins
+	   if(FinalValues.decompressionStop[maxDepthIndex][bottomTimeIndex] > 0){
+		   return FinalValues.decompressionStop[maxDepthIndex][bottomTimeIndex];
+	   }
+	   else{
+		   return 0;
+	   }
+   }
 }

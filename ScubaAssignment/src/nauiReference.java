@@ -4,6 +4,7 @@ import java.awt.event.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 
 
 public class nauiReference extends JFrame implements ActionListener{
@@ -12,7 +13,7 @@ public class nauiReference extends JFrame implements ActionListener{
 	private JLabel imageHolder;
 	private Container container;
 	
-	public nauiReference(javax.swing.JButton button){		
+	public nauiReference(JButton button){		
 		
 		setTitle("This program is a prototype and CANNOT be used for ACTUAL DIVES.");
 		
