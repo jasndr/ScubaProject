@@ -31,7 +31,7 @@ public class diveTable extends JFrame implements ActionListener{
    diveFunctions dFunctions = new diveFunctions();
    ArrayList<DiveStruct> userTable = new ArrayList<DiveStruct>();
    
-	public diveTable(){
+	public diveTable(JButton button){
 		//set the title of the main gui frame
 		setTitle("This program is a prototype and CANNOT be used for ACTUAL DIVES.");
 		//creates the buttons to click
@@ -54,6 +54,13 @@ public class diveTable extends JFrame implements ActionListener{
 				deleteDive();
 			}
 		
+		});
+      
+		//add event listener
+		addWindowListener(new WindowAdapter(){
+			public void windowClosing(WindowEvent e){
+				button.setEnabled(true);
+			}
 		});
 		
 		//sets the 2 buttons to the left side of the GUI

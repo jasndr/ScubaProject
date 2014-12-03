@@ -26,7 +26,7 @@ public class mainHub extends JFrame implements ActionListener{
 		 * not yet a working button
 		 */
 		mainDis = new JButton("Main Display");
-		mainDis.setEnabled(false); //set to false because not implemented yet
+		mainDis.setEnabled(true); //set to true for aesthetic purposes
 		mainDis.addActionListener(new ActionListener(){
 			//this calls on the action when the create dive button is pressed
 			public void actionPerformed(ActionEvent e)
@@ -46,11 +46,10 @@ public class mainHub extends JFrame implements ActionListener{
 			//this calls on the action when the create dive button is pressed
 			public void actionPerformed(ActionEvent e)
 			{
-				diveTable scuba = new diveTable();
+				diveTable scuba = new diveTable(table);
 				scuba.setSize(900, 350);
 				scuba.setVisible(true);
-				//table.setEnabled(false); //to turn off button
-				 	//cant seem to figure out how to turn it back on when window closed
+				table.setEnabled(false); //to turn off button
 			}
 		});
       
@@ -64,22 +63,20 @@ public class mainHub extends JFrame implements ActionListener{
 			//this calls on the action when the create dive button is pressed
 			public void actionPerformed(ActionEvent e)
 			{
-				nauiReference naui = new nauiReference();
+				nauiReference naui = new nauiReference(tableRef);
 				naui.setVisible(true);
 				naui.setLocation(700,100);
 				naui.pack();
-				//tableRef.setEnabled(false); to turn of button
-											//cant seem to figure out how to turn it back on when window closed
+				tableRef.setEnabled(false); //to turn of button
 			}
 		});
-		tableRef.setEnabled(true);
 		
 		/**
 		 * this creates the button for settings
 		 * not yet a working button
 		 */
 		settings = new JButton("Settings");
-		settings.setEnabled(false); //set to false because not implemented yet
+		settings.setEnabled(true); //set to true for aesthetic purposes
 		settings.addActionListener(new ActionListener(){
 			//this calls on the action when the create dive button is pressed
 			public void actionPerformed(ActionEvent e)
