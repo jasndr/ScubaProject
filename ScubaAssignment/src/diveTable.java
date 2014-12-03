@@ -32,6 +32,7 @@ public class diveTable extends JFrame implements ActionListener{
    ArrayList<DiveStruct> userTable = new ArrayList<DiveStruct>();
    
 	public diveTable(){
+		//set the title of the main gui frame
 		setTitle("This program is a prototype and CANNOT be used for ACTUAL DIVES.");
 		//creates the buttons to click
 		createDive = new JButton("Create Dive");
@@ -469,13 +470,17 @@ public class diveTable extends JFrame implements ActionListener{
       }
    }
    
-   public static void main(String[] args){
+	//if you would just like to test the diveTable
+	//comment out other main methods in other class
+ /*  public static void main(String[] args){
 		diveTable scuba = new diveTable();
-      JOptionPane.showMessageDialog(null, "This program is a prototype and CANNOT be used for ACTUAL DIVES.", "PROTOTYPE!!", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "This program is a prototype and CANNOT "
+        		+ "be used for ACTUAL DIVES.", "PROTOTYPE!!", 
+        		JOptionPane.WARNING_MESSAGE);
 		scuba.setSize(800, 300);
 		scuba.setVisible(true);
 		scuba.setDefaultCloseOperation(EXIT_ON_CLOSE);
-   }
+   }*/
 
    @Override
    public void actionPerformed(ActionEvent arg0) {
