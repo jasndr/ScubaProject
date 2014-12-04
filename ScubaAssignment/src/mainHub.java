@@ -33,8 +33,7 @@ public class mainHub extends JFrame implements ActionListener{
 			{
 				mainDisplay display = new mainDisplay(mainDis, table, tableRef, settings);
 				display.setVisible(true);
-				display.setLocation(600,100);
-				display.setSize(700,180);
+				display.pack();
 				mainDis.setEnabled(false);
 				table.setEnabled(false);
 				tableRef.setEnabled(false);
@@ -71,7 +70,6 @@ public class mainHub extends JFrame implements ActionListener{
 			{
 				nauiReference naui = new nauiReference(tableRef);
 				naui.setVisible(true);
-				naui.setLocation(700,100);
 				naui.pack();
 				tableRef.setEnabled(false); //to turn of button
 			}
@@ -89,8 +87,7 @@ public class mainHub extends JFrame implements ActionListener{
 			{
 				userSettings set = new userSettings(settings);
 				set.setVisible(true);
-				set.setLocation(800,650);
-				set.setSize(700,180);
+				set.pack();
 				settings.setEnabled(false);
 			}
 		
