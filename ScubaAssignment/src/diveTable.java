@@ -229,7 +229,9 @@ public class diveTable extends JFrame implements ActionListener{
 	 *********************************************************/
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	public void createDive() {
-    	boolean isValidDepth, isValidBTime, isValidITime;
+    	boolean isValidDepth = false;
+    	boolean isValidBTime = false;
+    	boolean isValidITime = false;
     	int userDepth, userBotTime, userSurfInt; //Moved these values here since don't need to use them outside of this method
     	int rNitrogen = 0;
     	int maxDepthIndex = -1;
@@ -262,7 +264,7 @@ public class diveTable extends JFrame implements ActionListener{
 
     		//opens the depth popup
     		isValidDepth = false;
-    		while(!isValidDepth){
+    		while(!isValidDepth || !isValidBTime || !isValidITime){
     			int depthResult = JOptionPane.showConfirmDialog(null, createDepthPopup, 
     					"Create Dive #" + (diveCounter + 1) + ": DEPTH", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
@@ -374,7 +376,7 @@ public class diveTable extends JFrame implements ActionListener{
     					}
     				}catch(NumberFormatException e){
     					//error message for all popups if not a number
-    					JOptionPane.showMessageDialog(null, "You have not entered an actual number!", "ERROR", JOptionPane.ERROR_MESSAGE);
+    					JOptionPane.showMessageDialog(null, "You have not entered an actual number, or a MUCH too large number!", "ERROR", JOptionPane.ERROR_MESSAGE);
     				}
     				catch(ArrayIndexOutOfBoundsException e){
     					//error message for residual nitrogen if diving too deep from previous dive
@@ -387,6 +389,8 @@ public class diveTable extends JFrame implements ActionListener{
     				//when cancel is pressed from the depth popup
     				JOptionPane.showMessageDialog(null, "You have the CANCELLED current dive, no information will be saved", "CANCEL", JOptionPane.WARNING_MESSAGE);
     				isValidDepth = true;
+    				isValidBTime = true;
+    				isValidITime = true;
     			}
     		}
     	}
