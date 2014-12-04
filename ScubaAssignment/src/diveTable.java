@@ -205,6 +205,12 @@ public class diveTable extends JFrame implements ActionListener{
 		table.add(resNitro5);
 		table.add(decompStop5);
 		
+		diveNum1.setText(1 + "");
+		diveNum2.setText(2 + "");
+		diveNum3.setText(3 + "");
+		diveNum4.setText(4 + "");
+		diveNum5.setText(5 + "");
+		
 		/*****************************************************
 		 * the main panel to put together the buttons and grid
 		*****************************************************/
@@ -408,7 +414,6 @@ public class diveTable extends JFrame implements ActionListener{
         	{
         		userTable.remove(diveCounter-1);
         		if(diveCounter == 1){ //if you are on dive 1 set everything on dive 1 to empty
-        			diveNum1.setText("");
         			depth1.setText("");
         			botTime1.setText("");
         			surfInt1.setText("");
@@ -416,7 +421,6 @@ public class diveTable extends JFrame implements ActionListener{
         			decompStop1.setText("");
         		}
         		else if(diveCounter == 2){
-        			diveNum2.setText("");
         			depth2.setText("");
         			botTime2.setText("");
         			surfInt2.setText("");
@@ -425,7 +429,6 @@ public class diveTable extends JFrame implements ActionListener{
         			decompStop2.setText("");
         		}
         		else if(diveCounter == 3){
-        			diveNum3.setText("");
         			depth3.setText("");
         			botTime3.setText("");
         			surfInt3.setText("");
@@ -434,7 +437,6 @@ public class diveTable extends JFrame implements ActionListener{
         			decompStop3.setText("");
         		}
         		else if(diveCounter == 4){
-        			diveNum4.setText("");
         			depth4.setText("");
         			botTime4.setText("");
         			surfInt4.setText("");
@@ -443,7 +445,6 @@ public class diveTable extends JFrame implements ActionListener{
         			decompStop4.setText("");
         		}
         		else if(diveCounter == 5){
-        			diveNum5.setText("");
         			depth5.setText("");
         			botTime5.setText("");
         			surfInt5.setText("");
@@ -458,17 +459,15 @@ public class diveTable extends JFrame implements ActionListener{
    }
     
 	public void setTable(int diveNumber){
-      switch(diveNumber){
-         case 0 : diveNum1.setText(userTable.get(diveNumber).getDiveNum() + "");
-                  depth1.setText(userTable.get(diveNumber).getMaxDepth() + "");
+      switch(diveNumber){ 
+         case 0 : depth1.setText(userTable.get(diveNumber).getMaxDepth() + "");
                   botTime1.setText(userTable.get(diveNumber).getBottomTime() + "");
                   surfInt1.setText(userTable.get(diveNumber).getSurfaceInterval() + "");
                   resNitro1.setText("N/A till next dive info");
                   decompStop1.setText(userTable.get(diveNumber).getDecompressionMins() + " mins");
                   break;
 
-         case 1 : diveNum2.setText(userTable.get(diveNumber).getDiveNum() + "");
-                  depth2.setText(userTable.get(diveNumber).getMaxDepth() + "");
+         case 1 : depth2.setText(userTable.get(diveNumber).getMaxDepth() + "");
                   botTime2.setText(userTable.get(diveNumber).getBottomTime() + "");
                   surfInt2.setText(userTable.get(diveNumber).getSurfaceInterval() + "");
                   resNitro1.setText(userTable.get(diveNumber).getResNitrogen() + "");
@@ -476,8 +475,7 @@ public class diveTable extends JFrame implements ActionListener{
                   decompStop2.setText(userTable.get(diveNumber).getDecompressionMins() + " mins");
                   break;
                   
-         case 2 : diveNum3.setText(userTable.get(diveNumber).getDiveNum() + "");
-                  depth3.setText(userTable.get(diveNumber).getMaxDepth() + "");
+         case 2 : depth3.setText(userTable.get(diveNumber).getMaxDepth() + "");
                   botTime3.setText(userTable.get(diveNumber).getBottomTime() + "");
                   surfInt3.setText(userTable.get(diveNumber).getSurfaceInterval() + "");
                   resNitro2.setText(userTable.get(diveNumber).getResNitrogen() + "");
@@ -485,8 +483,7 @@ public class diveTable extends JFrame implements ActionListener{
                   decompStop3.setText(userTable.get(diveNumber).getDecompressionMins() + " mins");
                   break;
 
-         case 3 : diveNum4.setText(userTable.get(diveNumber).getDiveNum() + "");
-                  depth4.setText(userTable.get(diveNumber).getMaxDepth() + "");
+         case 3 : depth4.setText(userTable.get(diveNumber).getMaxDepth() + "");
                   botTime4.setText(userTable.get(diveNumber).getBottomTime() + "");
                   surfInt4.setText(userTable.get(diveNumber).getSurfaceInterval() + "");
                   resNitro3.setText(userTable.get(diveNumber).getResNitrogen() + "");
@@ -494,8 +491,7 @@ public class diveTable extends JFrame implements ActionListener{
                   decompStop4.setText(userTable.get(diveNumber).getDecompressionMins() + " mins");
                   break;
                   
-         case 4 : diveNum5.setText(userTable.get(diveNumber).getDiveNum() + "");
-                  depth5.setText(userTable.get(diveNumber).getMaxDepth() + "");
+         case 4 : depth5.setText(userTable.get(diveNumber).getMaxDepth() + "");
                   botTime5.setText(userTable.get(diveNumber).getBottomTime() + "");
                   surfInt5.setText(userTable.get(diveNumber).getSurfaceInterval() + "");
                   resNitro4.setText(userTable.get(diveNumber).getResNitrogen() + "");
