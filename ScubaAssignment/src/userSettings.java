@@ -1,10 +1,12 @@
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,14 +15,18 @@ import javax.swing.SwingConstants;
 
 public class userSettings extends JFrame implements ActionListener{
 
-	private JLabel lbl;
+	private ImageIcon image;
+	private JLabel imageHolder;
+	private Container container;
 	
 	public userSettings(final JButton button){
 		setTitle("This program is a prototype and CANNOT be used for ACTUAL DIVES.");
-	
-		lbl = new JLabel("Placeholder: The SETTINGS GUI isn't implemented yet", SwingConstants.CENTER);
-		lbl.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		add(lbl);
+		
+		//get the image from the default package
+		image = new ImageIcon(getClass().getResource("settings_img.jpg"));
+		imageHolder = new JLabel(image); //set the image to a label
+		container = getContentPane(); 
+		container.add(imageHolder);	 //add the image to the container
 		
 		
 		//add event listener
