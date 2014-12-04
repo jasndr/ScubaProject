@@ -13,7 +13,7 @@ public class nauiReference extends JFrame implements ActionListener{
 	private JLabel imageHolder;
 	private Container container;
 	
-	public nauiReference(JButton button){		
+	public nauiReference(final JButton button){		
 		
 		setTitle("This program is a prototype and CANNOT be used for ACTUAL DIVES.");
 		
