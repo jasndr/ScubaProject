@@ -347,7 +347,8 @@ public class diveTable extends JFrame implements ActionListener{
     												"ERROR", JOptionPane.ERROR_MESSAGE);
     									}
     									else{
-    										JOptionPane.showMessageDialog(null, "Bottom time is too long!  Please enter a shorter time or shallower depth.  Otherwise, enter a longer surface interval for previous dive.", 
+    										JOptionPane.showMessageDialog(null, "<html>Bottom time is too long!"
+    												+ "<br>Please enter a shorter time or shallower depth.  Otherwise, enter a longer surface interval for previous dive.</hmtl>", 
     												"ERROR", JOptionPane.ERROR_MESSAGE);
     									}
     								}
