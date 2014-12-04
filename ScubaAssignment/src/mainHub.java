@@ -31,11 +31,14 @@ public class mainHub extends JFrame implements ActionListener{
 			//this calls on the action when the create dive button is pressed
 			public void actionPerformed(ActionEvent e)
 			{
-				mainDisplay display = new mainDisplay(mainDis);
+				mainDisplay display = new mainDisplay(mainDis, table, tableRef, settings);
 				display.setVisible(true);
 				display.setLocation(600,100);
 				display.setSize(700,180);
 				mainDis.setEnabled(false);
+				table.setEnabled(false);
+				tableRef.setEnabled(false);
+				settings.setEnabled(false);
 			}
 		
 		});
