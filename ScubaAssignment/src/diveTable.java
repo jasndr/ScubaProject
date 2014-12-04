@@ -161,7 +161,7 @@ public class diveTable extends JFrame implements ActionListener{
 		 *creates a grid to add the components into 
 		******************************************/
 		table = new JPanel();
-		table.setLayout(new GridLayout(7, 5));
+		table.setLayout(new GridLayout(6, 5));
 
 		table.add(diveNum); //title
 		table.add(depth);
@@ -212,7 +212,7 @@ public class diveTable extends JFrame implements ActionListener{
 		mainWindow.setLayout(new BorderLayout());
 		mainWindow.add(buttonGroup, BorderLayout.WEST); //puts the buttons to the left
 		mainWindow.add(table, BorderLayout.CENTER); //puts the table in the middle
-
+		
 
 	}
 	
