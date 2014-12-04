@@ -31,8 +31,11 @@ public class mainHub extends JFrame implements ActionListener{
 			//this calls on the action when the create dive button is pressed
 			public void actionPerformed(ActionEvent e)
 			{
-				//gui not yet implemented
-				//function not yet implemented
+				mainDisplay display = new mainDisplay(mainDis);
+				display.setVisible(true);
+				display.setLocation(600,100);
+				display.setSize(700,180);
+				mainDis.setEnabled(false);
 			}
 		
 		});
@@ -81,8 +84,11 @@ public class mainHub extends JFrame implements ActionListener{
 			//this calls on the action when the create dive button is pressed
 			public void actionPerformed(ActionEvent e)
 			{
-				//gui not yet implemented
-				//function not yet implemented
+				userSettings set = new userSettings(settings);
+				set.setVisible(true);
+				set.setLocation(800,650);
+				set.setSize(700,180);
+				settings.setEnabled(false);
 			}
 		
 		});
