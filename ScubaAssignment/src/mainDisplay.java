@@ -19,7 +19,7 @@ public class mainDisplay extends JFrame implements ActionListener{
 	private JLabel imageHolder;
 	private Container container;
 	
-	public mainDisplay(final JButton button, final JButton button2, final JButton button3, final JButton button4){
+	public mainDisplay(final JButton button, final JButton button2, final JButton button3){
 		setTitle("This program is a prototype and CANNOT be used for ACTUAL DIVES.");
 	
 		//get the image from the default package
@@ -35,7 +35,6 @@ public class mainDisplay extends JFrame implements ActionListener{
 				button.setEnabled(true);
 				button2.setEnabled(true);
 				button3.setEnabled(true);
-				button4.setEnabled(true);
 			}
 		});
 		

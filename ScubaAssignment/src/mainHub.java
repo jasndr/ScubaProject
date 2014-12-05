@@ -31,12 +31,11 @@ public class mainHub extends JFrame implements ActionListener{
 			//this calls on the action when the create dive button is pressed
 			public void actionPerformed(ActionEvent e)
 			{
-				mainDisplay display = new mainDisplay(mainDis, table, tableRef, settings);
+				mainDisplay display = new mainDisplay(mainDis, table, settings);
 				display.setVisible(true);
 				display.pack();
 				mainDis.setEnabled(false);
 				table.setEnabled(false);
-				tableRef.setEnabled(false);
 				settings.setEnabled(false);
 			}
 		
@@ -51,10 +50,12 @@ public class mainHub extends JFrame implements ActionListener{
 			//this calls on the action when the create dive button is pressed
 			public void actionPerformed(ActionEvent e)
 			{
-				diveTable scuba = new diveTable(table);
+				diveTable scuba = new diveTable(table, mainDis, settings);
 				scuba.setSize(900, 350);
 				scuba.setVisible(true);
 				table.setEnabled(false); //to turn off button
+				mainDis.setEnabled(false);
+				settings.setEnabled(false);
 			}
 		});
       
@@ -85,10 +86,12 @@ public class mainHub extends JFrame implements ActionListener{
 			//this calls on the action when the create dive button is pressed
 			public void actionPerformed(ActionEvent e)
 			{
-				userSettings set = new userSettings(settings);
+				userSettings set = new userSettings(settings, mainDis, table);
 				set.setVisible(true);
 				set.pack();
 				settings.setEnabled(false);
+				mainDis.setEnabled(false);
+				table.setEnabled(false);
 			}
 		
 		});

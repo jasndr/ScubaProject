@@ -19,7 +19,7 @@ public class userSettings extends JFrame implements ActionListener{
 	private JLabel imageHolder;
 	private Container container;
 	
-	public userSettings(final JButton button){
+	public userSettings(final JButton button, final JButton button2, final JButton button3){
 		setTitle("This program is a prototype and CANNOT be used for ACTUAL DIVES.");
 		
 		//get the image from the default package
@@ -33,6 +33,8 @@ public class userSettings extends JFrame implements ActionListener{
 		addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent e){
 				button.setEnabled(true);
+				button2.setEnabled(true);
+				button3.setEnabled(true);
 			}
 		});
 		
