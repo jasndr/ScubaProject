@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -9,18 +10,19 @@ public class mainHub extends JFrame implements ActionListener{
 	private JButton mainDis, table, tableRef, settings;
 	private JPanel panel;
 	private Container container;
-	
+	private ArrayList<DiveStruct> userTable = new ArrayList<DiveStruct>();
+
 	/*
 	private ImageIcon image; //if i had time i was going to add an image
 	private JLabel lbl;
-	*/
+	 */
 	public mainHub(){
-		
+
 		//image = new ImageIcon(getClass().getResource("turtle.jpg")); if i got time i was gonna add an image
-		
-		
+
+
 		setTitle("This program is a prototype and CANNOT be used for ACTUAL DIVES.");
-		
+
 		/**
 		 * this creates the button for the Main Display
 		 * not yet a working button
@@ -31,16 +33,16 @@ public class mainHub extends JFrame implements ActionListener{
 			//this calls on the action when the create dive button is pressed
 			public void actionPerformed(ActionEvent e)
 			{
-				mainDisplay display = new mainDisplay(mainDis, table, settings);
+				mainDisplay display = new mainDisplay(mainDis, table, settings, userTable);
 				display.setVisible(true);
 				display.pack();
 				mainDis.setEnabled(false);
 				table.setEnabled(false);
 				settings.setEnabled(false);
 			}
-		
+
 		});
-		
+
 		/**
 		 * this creates the button for Dive Table: Create
 		 * calls on diveTable.java to open
@@ -50,7 +52,7 @@ public class mainHub extends JFrame implements ActionListener{
 			//this calls on the action when the create dive button is pressed
 			public void actionPerformed(ActionEvent e)
 			{
-				diveTable scuba = new diveTable(table, mainDis, settings);
+				diveTable scuba = new diveTable(table, mainDis, settings, userTable);
 				scuba.setSize(900, 350);
 				scuba.setVisible(true);
 				table.setEnabled(false); //to turn off button
@@ -58,7 +60,7 @@ public class mainHub extends JFrame implements ActionListener{
 				settings.setEnabled(false);
 			}
 		});
-      
+
 		/**
 		 * this creates the button for NAUI Table Reference
 		 * a reference to the NAUI dive table
@@ -75,7 +77,7 @@ public class mainHub extends JFrame implements ActionListener{
 				tableRef.setEnabled(false); //to turn of button
 			}
 		});
-		
+
 		/**
 		 * this creates the button for settings
 		 * not yet a working button
@@ -93,35 +95,35 @@ public class mainHub extends JFrame implements ActionListener{
 				mainDis.setEnabled(false);
 				table.setEnabled(false);
 			}
-		
+
 		});
-		
+
 		panel = new JPanel(new GridLayout(2,2)); //creates the main hub
 		panel.add(mainDis);  //adds all the components
 		panel.add(table);
 		panel.add(tableRef);
 		panel.add(settings);
-		
+
 		container = getContentPane();
 		container.add(panel);
-	
+
 	}
-	
-	   public static void main(String[] args){
-			mainHub hub = new mainHub();
-	        JOptionPane.showMessageDialog(null, "This program is a prototype and CANNOT "
-	        		+ "be used for ACTUAL DIVES.", "PROTOTYPE!!", 
-	        		JOptionPane.WARNING_MESSAGE);
-			hub.setSize(700, 300);
-			hub.setLocation(600, 300);
-			hub.setVisible(true);
-			hub.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	   }
-	
+
+	public static void main(String[] args){
+		mainHub hub = new mainHub();
+		JOptionPane.showMessageDialog(null, "This program is a prototype and CANNOT "
+				+ "be used for ACTUAL DIVES.", "PROTOTYPE!!", 
+				JOptionPane.WARNING_MESSAGE);
+		hub.setSize(700, 300);
+		hub.setLocation(600, 300);
+		hub.setVisible(true);
+		hub.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }

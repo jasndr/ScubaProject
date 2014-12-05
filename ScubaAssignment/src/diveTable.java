@@ -18,7 +18,7 @@ public class diveTable extends JFrame implements ActionListener{
 	private JLabel diveNum3, depth3, botTime3, surfInt3, resNitro3, decompStop3;
 	private JLabel diveNum4, depth4, botTime4, surfInt4, resNitro4, decompStop4;
 	private JLabel diveNum5, depth5, botTime5, surfInt5, resNitro5, decompStop5;
-	
+
 	//used for the create dive popup
 	private int diveCounter = 0;
 	private JTextField userDepthTxt, userBotTimeTxt, userSurfIntTxt; //the arrays of numbers for the list
@@ -26,12 +26,12 @@ public class diveTable extends JFrame implements ActionListener{
 	private JPanel createDepthPopup, createBotPopup, createSurfPopup;
 	@SuppressWarnings("rawtypes")
 
-	   
-   //Accessing the dive functions and storing data
-   diveFunctions dFunctions = new diveFunctions();
-   ArrayList<DiveStruct> userTable = new ArrayList<DiveStruct>();
-   
-	public diveTable(final JButton button, final JButton button2, final JButton button3){
+
+	//Accessing the dive functions and storing data
+	diveFunctions dFunctions = new diveFunctions();
+
+	public diveTable(final JButton button, final JButton button2, final JButton button3, ArrayList<DiveStruct> userTable){
+		diveCounter = userTable.size();
 		//set the title of the main gui frame
 		setTitle("This program is a prototype and CANNOT be used for ACTUAL DIVES.");
 		//creates the buttons to click
@@ -40,28 +40,28 @@ public class diveTable extends JFrame implements ActionListener{
 			//this calls on the action when the create dive button is pressed
 			public void actionPerformed(ActionEvent e)
 			{
-				createDive();
+				createDive(userTable);
 			}
-		
+
 		});
-           
+
 		//need to add action listener
 		deleteDive = new JButton("Delete Dive");
 		deleteDive.addActionListener(new ActionListener(){
 			//this calls on the action when the delete dive button is pressed
 			public void actionPerformed(ActionEvent e)
 			{
-				deleteDive();
+				deleteDive(userTable);
 			}
-		
+
 		});
       
 		//add event listener
 		addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent e){
 				button.setEnabled(true);
-				button2.setEnabled(true);
-				button3.setEnabled(true);
+            button2.setEnabled(true);
+            button3.setEnabled(true);
 			}
 		});
 		
@@ -220,17 +220,19 @@ public class diveTable extends JFrame implements ActionListener{
 		mainWindow.setLayout(new BorderLayout());
 		mainWindow.add(buttonGroup, BorderLayout.WEST); //puts the buttons to the left
 		mainWindow.add(table, BorderLayout.CENTER); //puts the table in the middle
-		
 
+		for(int i = 0; i < userTable.size(); i++){
+			setTable(i, userTable);
+		}
 	}
-	
+
 	/*********************************************************
 	 * Does the logic for creating a dive
 	 * only currently works for 1 dive
 	 * user is able to select input based on drop-down menus
 	 *********************************************************/
     @SuppressWarnings({ "unchecked", "rawtypes" })
-	public void createDive() {
+	public void createDive(ArrayList<DiveStruct> userTable) {
     	boolean isValidDepth = false;
     	boolean isValidBTime = false;
     	boolean isValidITime = false;
@@ -320,7 +322,7 @@ public class diveTable extends JFrame implements ActionListener{
     												decompressionMins = dFunctions.decompStopMins(maxDepthIndex, bottomTimeIndex);
     												DiveStruct dives = new DiveStruct(diveCounter+1, userDepth, userBotTime, userSurfInt, rNitrogen, surfaceIntervalIndex, decompressionMins); //store dive information
     												userTable.add(dives);
-    												setTable(diveCounter);
+    												setTable(diveCounter, userTable);
     												diveCounter += 1; //increment dive counter
     											}
     											else{
@@ -402,7 +404,7 @@ public class diveTable extends JFrame implements ActionListener{
     	}
     }
    
-   public void deleteDive(){
+   public void deleteDive(ArrayList<DiveStruct> userTable){
     	
     	JLabel deleteLbl = new JLabel("This will delete the newest dive.  Are you sure you would like to delete dive number " + (diveCounter) + "?");
     	
@@ -465,7 +467,7 @@ public class diveTable extends JFrame implements ActionListener{
     	}		
    }
     
-	public void setTable(int diveNumber){
+	public void setTable(int diveNumber, ArrayList<DiveStruct> userTable){
       switch(diveNumber){ 
          case 0 : depth1.setText(userTable.get(diveNumber).getMaxDepth() + "");
                   botTime1.setText(userTable.get(diveNumber).getBottomTime() + "");
