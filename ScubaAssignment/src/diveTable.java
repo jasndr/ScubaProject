@@ -30,7 +30,7 @@ public class diveTable extends JFrame implements ActionListener{
 	//Accessing the dive functions and storing data
 	diveFunctions dFunctions = new diveFunctions();
 
-	public diveTable(final JButton button, final JButton button2, final JButton button3, ArrayList<DiveStruct> userTable){
+	public diveTable(final JButton button, final JButton button2, final JButton button3, final ArrayList<DiveStruct> userTable){
 		diveCounter = userTable.size();
 		//set the title of the main gui frame
 		setTitle("This program is a prototype and CANNOT be used for ACTUAL DIVES.");

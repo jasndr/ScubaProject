@@ -20,7 +20,7 @@ public class mainDisplay extends JFrame implements ActionListener{
 	private JLabel imageHolder;
 	private Container container;
 
-	public mainDisplay(final JButton button, final JButton button2, final JButton button3, ArrayList<DiveStruct> userTable){
+	public mainDisplay(final JButton button, final JButton button2, final JButton button3, final ArrayList<DiveStruct> userTable){
 		setTitle("This program is a prototype and CANNOT be used for ACTUAL DIVES.");
 
 		//get the image from the default package
