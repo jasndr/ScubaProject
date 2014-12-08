@@ -5,7 +5,7 @@
 
 <body>
 <h2>Top priority at the moment?:</h2>
-<p>Complete Final Demo by SUN, Dec 7.  At least one meet-up the week before.  Decide when to record video</p>
+<p><b>DONE!!! GOOD JOB GUYS.  I enjoyed working with you two :D</b></p>
 
 <h2>Upcoming due dates for the project</h2>
 
